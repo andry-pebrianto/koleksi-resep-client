@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../components/organisms/Navbar";
+import Footer from "../components/organisms/Footer";
 import { getList } from "../redux/actions/users";
 
 export default function Landing() {
@@ -65,6 +66,7 @@ export default function Landing() {
       <br />
       <br />
       <br />
+      <Footer />
     </>
   );
 }
