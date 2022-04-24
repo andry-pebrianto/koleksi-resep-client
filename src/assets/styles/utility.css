@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "Inter";
+  src: url(../fonts/inter.woff2);
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Airbnb";
+  src: url(../fonts/airbnb.woff2);
+  font-display: swap;
+}
+
+/* custom utility */
+.color-primary {
+  color: #EFC81A !important;
+}
+
+.color-blue {
+  color: #2E266F !important;
+}
+
+.back-primary {
+  background-color: #EFC81A !important;
+}
+
+.ff-inter {
+  font-family: "Inter", sans-serif;
+}
+
+.ff-airbnb {
+  font-family: "Airbnb", sans-serif;
+}
+
+.mb-10 {
+  margin-bottom: 120px !important;
+}
+
+.btn-none:focus {
+  outline: none;
+  box-shadow: none;
+}

@@ -1,0 +1,73 @@
+/* side component */
+.side {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-image: url(../images/bg-side.webp);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  transform: rotate(180deg);
+}
+
+.side::after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(239, 200, 26, .7);
+}
+
+.side .icon {
+  z-index: 999;
+  transform: rotate(180deg);
+}
+
+/* auth component */
+.auth {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.auth .content {
+  width: 100%;
+  max-width: 330px;
+  margin-top: 40px;
+}
+
+/* width di atas 576px */
+@media (min-width: 576px) {
+  .auth {
+    height: 100vh;
+    flex-shrink: 0;
+    overflow: auto;
+  }
+}
+
+/* height di atas 600px */
+@media (min-height: 600px) {
+  .login {
+    align-items: center;
+  }
+}
+
+/* height di atas 950px */
+@media (min-height: 950px) {
+  .register {
+    align-items: center;
+  }
+}
+
+input[type="checkbox"]:hover {
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #EFC81A;
+  border: none;
+}

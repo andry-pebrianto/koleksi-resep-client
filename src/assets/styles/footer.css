@@ -1,0 +1,30 @@
+/* footer */
+footer .top {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-transform: capitalize;
+}
+
+footer .bottom {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .bottom ul {
+  display: flex;
+  list-style: none;
+}
+
+footer .bottom ul li {
+  margin: 0 10px;
+}
+
+footer .bottom ul li a {
+  font-size: .8rem;
+  text-decoration: none;
+}

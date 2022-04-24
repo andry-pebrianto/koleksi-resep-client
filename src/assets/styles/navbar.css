@@ -1,0 +1,31 @@
+/* navbar component */
+.navbar {
+  margin-top: -5px;
+  transition: 0.5s;
+}
+
+.navbar .nav-link {
+  font-weight: 500;
+  color: #2E266F !important;
+}
+
+.navbar .active {
+  padding-right: 5px;
+  border-bottom: 2px solid #2E266F;
+}
+
+.navbar .right-menu .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.navbar .right-menu a {
+  text-decoration: none;
+}
+
+.nav-shadow {
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.19), 0 3px 3px rgba(0, 0, 0, 0.23);
+}

@@ -1,0 +1,82 @@
+/* list */
+.list {
+  margin-top: 120px;
+}
+
+.list .search {
+  display: flex;
+  max-width: 400px;
+  width: 100%;
+}
+
+.list .search label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #EFEFEF;
+  border: none;
+}
+
+.list .search label:hover {
+  cursor: pointer;
+}
+
+.list .search input {
+  background-color: #EFEFEF;
+  border: none;
+}
+
+.list .search input:focus {
+  background-color: #ffffff;
+}
+
+.list .card {
+  position: relative;
+  border: none;
+}
+
+.list .title {
+  position: absolute;
+  bottom: 0;
+  left: 20px;
+  font-size: 21px;
+}
+
+.list img {
+  object-fit: cover;
+  border-radius: 12px;
+  height: 250px;
+}
+
+/* di atas 768px */
+@media (min-width: 768px) {
+
+  /* list */
+  .list img {
+    height: 225px;
+  }
+}
+
+/* di atas 992px */
+@media (min-width: 992px) {
+  .list .search {
+    max-width: 450px;
+  }
+
+  /* list */
+  .list img {
+    height: 300px;
+  }
+}
+
+/* di atas 1200px */
+@media (min-width: 1200px) {
+  .list .search {
+    max-width: 500px;
+  }
+
+  /* list */
+  .list img {
+    height: 350px;
+  }
+}
