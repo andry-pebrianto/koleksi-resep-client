@@ -2,10 +2,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 import "./assets/styles/utility.css";
 import React from 'react'
+import { Provider } from "react-redux";
+import store from "./redux/store";
 import Router from "./router";
 
 export default function App() {
   return (
-    <Router />
+    <Provider store={store}>
+      <Router />
+    </Provider>
   )
 }
