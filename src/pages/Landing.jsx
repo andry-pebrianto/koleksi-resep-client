@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getList } from '../redux/actions/users';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Navbar from "../components/organisms/Navbar";
+import { getList } from "../redux/actions/users";
 
-export default function Landing() {  
+export default function Landing() {
+  const isLoggedIn = false;
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state);
 
@@ -11,6 +13,58 @@ export default function Landing() {
   }, [dispatch]);
 
   return (
-    <div>Landing</div>
-  )
+    <>
+      <Navbar isLoggedIn={isLoggedIn} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+    </>
+  );
 }
