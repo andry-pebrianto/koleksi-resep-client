@@ -15,9 +15,8 @@ export default function Landing() {
   const { latest } = useSelector((state) => state);
 
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - Landing`
-  }, [])
-  
+    document.title = `${process.env.REACT_APP_APP_NAME} - Landing`;
+  }, []);
 
   useEffect(() => {
     dispatch(getLatest());
@@ -30,7 +29,7 @@ export default function Landing() {
         <LandingHero />
         <LandingSuggestion />
         <LandingNew />
-        <LandingLatest recipes={latest.data} />
+        <LandingLatest recipes={latest.data} loading={latest.isLoading} />
       </div>
       <Footer />
     </>
