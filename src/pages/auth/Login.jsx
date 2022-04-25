@@ -20,7 +20,9 @@ export default function Login() {
 
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - Login`;
+  }, []);
 
+  useEffect(() => {
     if (token) {
       return navigate("/");
     }
@@ -39,7 +41,7 @@ export default function Login() {
 
       const loginStatus = await login(form, setErrors);
       if (loginStatus) {
-        createToast("Login Success", 'success');
+        createToast("Login Success", "success");
         navigate("/");
       }
 

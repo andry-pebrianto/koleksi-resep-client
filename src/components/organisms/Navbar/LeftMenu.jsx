@@ -17,16 +17,16 @@ const LeftMenu = ({isLoggedIn}) => {
       {isLoggedIn && (
         <>
           <li className="nav-item me-5">
-            <Link to="/list" className="nav-link">
+            <Link to="/recipe" className="nav-link">
               <span
-                className={`${location.pathname.includes("list") && "active"}`}
+                className={`${location.pathname === "/recipe" && "active"} && "active"}`}
               >
                 List Recipe
               </span>
             </Link>
           </li>
           <li className="nav-item me-5">
-            <Link to="/add" className="nav-link">
+            <Link to="/recipe/add" className="nav-link">
               <span className={`${location.pathname === "/add" && "active"}`}>
                 Add Recipe
               </span>

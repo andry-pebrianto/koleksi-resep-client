@@ -1,7 +1,7 @@
 import {
-  GET_LATEST_RECIPE_FAILED,
-  GET_LATEST_RECIPE_PENDING,
-  GET_LATEST_RECIPE_SUCCESS,
+  GET_LIST_RECIPE_FAILED,
+  GET_LIST_RECIPE_PENDING,
+  GET_LIST_RECIPE_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -11,18 +11,18 @@ const initialState = {
   error: null,
 };
 
-const usersReducer = (state = initialState, action) => {
+const listRecipeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_LATEST_RECIPE_PENDING:
+    case GET_LIST_RECIPE_PENDING:
       return { ...state, isLoading: true };
-    case GET_LATEST_RECIPE_SUCCESS:
+    case GET_LIST_RECIPE_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
         data: action.payload,
       };
-    case GET_LATEST_RECIPE_FAILED:
+    case GET_LIST_RECIPE_FAILED:
       return {
         ...state,
         isLoading: false,
@@ -34,4 +34,4 @@ const usersReducer = (state = initialState, action) => {
   }
 };
 
-export default usersReducer;
+export default listRecipeReducer;

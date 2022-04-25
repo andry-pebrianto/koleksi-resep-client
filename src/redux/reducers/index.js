@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import latestReducer from "./latest";
+import latestRecipeReducer from "./latestRecipe";
+import listRecipeReducer from "./listRecipe";
 
 const rootReducers = combineReducers({
-  latest: latestReducer,
+  latestRecipe: latestRecipeReducer,
+  listRecipe: listRecipeReducer,
 });
 
 export default rootReducers;

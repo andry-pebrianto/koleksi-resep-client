@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Landing from "../pages/Landing";
 import Login from "../pages/auth/Login";
+import List from "../pages/recipe/List";
 import NotFound from "../pages/NotFound";
 
 export default function router() {
@@ -15,6 +16,9 @@ export default function router() {
         </Route>
         <Route path="/auth">
           <Route index element={<Login />} />
+        </Route>
+        <Route path="/recipe">
+          <Route index element={<List />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
