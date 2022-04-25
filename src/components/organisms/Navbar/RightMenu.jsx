@@ -1,16 +1,27 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+import Swal from "sweetalert2";
 import { FaRegUser } from "react-icons/fa";
 
 const RightMenu = ({ isLoggedIn, transparent }) => {
   const navigate = useNavigate();
 
   const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-
-    return navigate("/login");
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be Logout!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Logout!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.clear();
+        return navigate("/auth");
+      }
+    });
   };
 
   return (
@@ -20,18 +31,14 @@ const RightMenu = ({ isLoggedIn, transparent }) => {
       </div>
       {isLoggedIn ? (
         <button
-          onClick={() => {
-            if (window.confirm("Are you sure you want to logout")) {
-              logout();
-            }
-          }}
+          onClick={logout}
           className={`btn nav-login color-blue btn-none`}
         >
           Logout
         </button>
       ) : (
         <Link
-          to="/login"
+          to="/auth"
           className={`nav-login ms-2 ${
             transparent ? "text-white" : "color-blue"
           }`}
@@ -46,6 +53,6 @@ const RightMenu = ({ isLoggedIn, transparent }) => {
 RightMenu.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   transparent: PropTypes.bool.isRequired,
-}
+};
 
 export default RightMenu;

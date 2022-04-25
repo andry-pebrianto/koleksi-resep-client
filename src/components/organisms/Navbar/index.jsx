@@ -55,9 +55,9 @@ const Navbar = ({ isLoggedIn = false }) => {
       }`}
       id="navbar"
     >
-      <div className="container">
+      <div className="container mt-1">
         <Link to="/" className="navbar-brand d-md-none">
-          <Logo width="45px" height="45px" color="#111" />
+          <Logo width="40px" height="40px" color="#111" />
           <span>{process.env.REACT_APP_APP_NAME}</span>
         </Link>
         <button

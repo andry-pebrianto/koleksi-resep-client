@@ -10,12 +10,13 @@ import LandingLatest from "../components/organisms/LandingLatest";
 import Footer from "../components/organisms/Footer";
 
 export default function Landing() {
-  const isLoggedIn = false;
+  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const { latest } = useSelector((state) => state);
 
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - Landing`;
+    window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function Landing() {
 
   return (
     <>
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar isLoggedIn={Boolean(token)} />
       <div className="container-fluid">
         <LandingHero />
         <LandingSuggestion />
