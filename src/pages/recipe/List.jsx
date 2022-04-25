@@ -20,6 +20,8 @@ export default function List() {
   const [sortQuery, setSortQuery] = useState("");
   const [pageQuery, setPageQuery] = useState("2");
 
+  console.log(listRecipe);
+
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - List Recipe`;
     window.scrollTo(0, 0);
@@ -113,14 +115,20 @@ export default function List() {
             </div>
           ) : (
             <>
-              {listRecipe.data.length ? (
-                <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-3">
-                  {listRecipe.data.map((recipe) => (
-                    <RecipeItem key={recipe.id} recipe={recipe} />
-                  ))}
-                </div>
+              {listRecipe.isError ? (
+                <h2 className="mt-3">{listRecipe.error}</h2>
               ) : (
-                <h2 className="mt-3">Data tidak ditemukan</h2>
+                <>
+                  {listRecipe.data.length ? (
+                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-3">
+                      {listRecipe.data.map((recipe) => (
+                        <RecipeItem key={recipe.id} recipe={recipe} />
+                      ))}
+                    </div>
+                  ) : (
+                    <h2 className="mt-3">Data tidak ditemukan</h2>
+                  )}
+                </>
               )}
             </>
           )}

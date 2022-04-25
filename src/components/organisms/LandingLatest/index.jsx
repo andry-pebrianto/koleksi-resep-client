@@ -1,15 +1,23 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getLatest } from "../../../redux/actions/recipe";
 import RecipeItem from "../../molecules/RecipeItem";
 
-const LandingLatest = ({ recipes, loading }) => {
+const LandingLatest = () => {
+  const dispatch = useDispatch();
+  const { latestRecipe } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(getLatest());
+  }, [dispatch]);
+
   return (
     <section className="popular ff-airbnb mb-10">
       <div className="title-section mb-4 mb-md-5">
         <h1>Latest Recipe</h1>
       </div>
       <div className="container">
-        {loading ? (
+        {latestRecipe.loading ? (
           <div className="d-flex justify-content-center">
             <div
               className="spinner-border"
@@ -21,24 +29,26 @@ const LandingLatest = ({ recipes, loading }) => {
           </div>
         ) : (
           <>
-            {recipes.length ? (
-              <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-                {recipes.map((recipe) => (
-                  <RecipeItem key={recipe.id} recipe={recipe} />
-                ))}
-              </div>
+            {latestRecipe.isError ? (
+              <h2 className="mt-3">{latestRecipe.error}</h2>
             ) : (
-              <h2>Data tidak ditemukan</h2>
+              <>
+                {latestRecipe.data.length ? (
+                  <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                    {latestRecipe.data.map((recipe) => (
+                      <RecipeItem key={recipe.id} recipe={recipe} />
+                    ))}
+                  </div>
+                ) : (
+                  <h2>Data tidak ditemukan</h2>
+                )}
+              </>
             )}
           </>
         )}
       </div>
     </section>
   );
-};
-
-LandingLatest.propTypes = {
-  recipes: PropTypes.array,
 };
 
 export default LandingLatest;
