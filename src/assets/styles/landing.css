@@ -118,8 +118,14 @@
 
 /* popular */
 .popular .card {
+  transition: .5s;
   position: relative;
   border: none;
+}
+
+.popular .card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.23);
+  transform: scale(1.018);
 }
 
 .popular .title {
