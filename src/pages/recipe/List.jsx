@@ -16,9 +16,9 @@ export default function List() {
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
-  const [limitQuery, setLimitQuery] = useState("2");
+  const [limitQuery, setLimitQuery] = useState("");
   const [sortQuery, setSortQuery] = useState("");
-  const [pageQuery, setPageQuery] = useState("2");
+  const [pageQuery, setPageQuery] = useState("");
 
   console.log(listRecipe);
 
