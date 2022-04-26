@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 import {
   GET_LATEST_RECIPE_PENDING,
@@ -31,7 +32,7 @@ export const getLatest = () => async (dispatch) => {
   }
 };
 
-export const getList = (url) => async (dispatch) => {
+export const getList = (url, navigate) => async (dispatch) => {
   const token = localStorage.getItem("token");
 
   try {
@@ -49,6 +50,13 @@ export const getList = (url) => async (dispatch) => {
       payload: res.data.data,
     });
   } catch (error) {
+    if (error.response) {
+      if (parseInt(error.response.data.code) === 401) {
+        localStorage.clear();
+        return navigate('/auth')
+      }
+    }
+
     dispatch({
       type: GET_LIST_RECIPE_FAILED,
       payload: error.message,

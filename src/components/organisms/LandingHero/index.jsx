@@ -10,7 +10,7 @@ const LandingHero = () => {
   const search = (e, query) => {
     e.preventDefault();
 
-    return navigate("/list?search=" + query);
+    return navigate("/recipe?search=" + query);
   };
 
   return (

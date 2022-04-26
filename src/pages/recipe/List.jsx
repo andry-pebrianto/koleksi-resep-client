@@ -56,7 +56,7 @@ export default function List() {
       url += `&page=${queryParams.get("page")}`;
     }
 
-    dispatch(getList(url));
+    dispatch(getList(url, navigate));
   }, [dispatch, navigate, queryParams]);
 
   const search = (e) => {
