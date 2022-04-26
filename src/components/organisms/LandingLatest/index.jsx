@@ -17,7 +17,7 @@ const LandingLatest = () => {
         <h1>Latest Recipe</h1>
       </div>
       <div className="container">
-        {latestRecipe.loading ? (
+        {latestRecipe.isLoading ? (
           <div className="d-flex justify-content-center">
             <div
               className="spinner-border"

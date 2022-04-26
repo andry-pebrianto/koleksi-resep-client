@@ -8,8 +8,6 @@ import LandingLatest from "../components/organisms/LandingLatest";
 import Footer from "../components/organisms/Footer";
 
 export default function Landing() {
-  const token = localStorage.getItem("token");
-
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - Landing`;
     window.scrollTo(0, 0);
@@ -17,7 +15,7 @@ export default function Landing() {
 
   return (
     <>
-      <Navbar isLoggedIn={Boolean(token)} />
+      <Navbar/>
       <div className="container-fluid">
         <LandingHero />
         <LandingSuggestion />

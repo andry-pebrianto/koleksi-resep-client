@@ -1,40 +1,61 @@
 import "../../assets/styles/auth.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../redux/actions/auth";
-import SideAuth from "../../components/molecules/SideAuth";
+import { register } from "../../redux/actions/auth";
+import SideAuth from "../../components/molecules/SideAuth/index.jsx";
 import Logo from "../../components/atoms/Logo";
 import { createToast } from "../../utils/createToast";
 
-export default function Login() {
+export default function Register() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
+    name: "",
     email: "",
+    phone: "",
     password: "",
+    passwordConfirm: "",
   });
+  const [photo, setPhoto] = useState(null);
   const [terms, setTerms] = useState(false);
 
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - Login`;
+    document.title = `${process.env.REACT_APP_APP_NAME} - Register`;
   }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (!form.email || !form.password) {
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("email", form.email);
+    formData.append("phone", form.phone);
+    formData.append("password", form.password);
+
+    if (photo) {
+      formData.append("photo", photo);
+    }
+
+    if (
+      !form.name ||
+      !form.email ||
+      !form.phone ||
+      !form.password
+    ) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
+    } else if (form.password !== form.passwordConfirm) {
+      setErrors([{ msg: "Password and Password Confirm must be same" }]);
     } else if (!terms) {
-      setErrors([{ msg: "You must agree terms and conditions to login" }]);
+      setErrors([{ msg: "You must agree terms and conditions to register" }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
-      const loginStatus = await login(form, setErrors);
-      if (loginStatus) {
-        createToast("Login Success", "success");
-        navigate("/");
+      const registerStatus = await register(formData, setErrors);
+      if (registerStatus) {
+        createToast("Register Success, Please Activate Your Account Through Link From Email", "success");
+        navigate("/auth");
       }
 
       setIsLoading(false);
@@ -48,11 +69,15 @@ export default function Login() {
     });
   };
 
+  const photoChangeHandler = (e) => {
+    setPhoto(e.target.files[0]);
+  };
+
   return (
     <div className="container-fluid">
       <div className="row">
         <SideAuth />
-        <div className="auth login col-sm-7 col-md-6">
+        <div className="auth register col-sm-7 col-md-6">
           <div className="content ff-inter">
             <div className="d-sm-none text-center mb-4">
               <Link to="/">
@@ -60,13 +85,32 @@ export default function Login() {
               </Link>
             </div>
             <h1 className="fs-4 fw-bold color-primary text-center mb-3">
-              Welcome
+              Let's Get Started
             </h1>
             <h2 className="fs-6 text-secondary text-center mb-4">
-              Log in into your existing account
+              Create new account to access all features
             </h2>
             {/* form */}
             <form onSubmit={submitHandler}>
+              <div className="mb-3">
+                <label
+                  htmlFor="name"
+                  className="form-label"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Required"
+                >
+                  * Name
+                </label>
+                <input
+                  type="text"
+                  className="form-control form-control-sm p-3"
+                  id="name"
+                  placeholder="Name"
+                  onChange={inputChangeHandler}
+                  required
+                />
+              </div>
               <div className="mb-3">
                 <label
                   htmlFor="email"
@@ -88,13 +132,44 @@ export default function Login() {
               </div>
               <div className="mb-3">
                 <label
+                  htmlFor="phone"
+                  className="form-label"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Required"
+                >
+                  * Phone Number
+                </label>
+                <input
+                  type="number"
+                  className="form-control form-control-sm p-3"
+                  id="phone"
+                  onChange={inputChangeHandler}
+                  required
+                  placeholder="08XXXXXXXXXX"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="photo" className="form-label">
+                  Photo
+                </label>
+                <input
+                  type="file"
+                  className="form-control form-control-sm p-3"
+                  id="photo"
+                  onChange={photoChangeHandler}
+                  placeholder="Photo"
+                />
+              </div>
+              <div className="mb-3">
+                <label
                   htmlFor="password"
                   className="form-label"
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
                   title="Required"
                 >
-                  * Password
+                  * Create New Password
                 </label>
                 <input
                   type="password"
@@ -102,7 +177,19 @@ export default function Login() {
                   id="password"
                   onChange={inputChangeHandler}
                   required
-                  placeholder="Password"
+                  placeholder="Create New Password"
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="passwordConfirm" className="form-label">
+                  Password Confirmation
+                </label>
+                <input
+                  type="password"
+                  className="form-control form-control-sm p-3"
+                  id="passwordConfirm"
+                  onChange={inputChangeHandler}
+                  placeholder="Password Confirmation"
                 />
               </div>
               <div className="mb-3 form-check">
@@ -117,7 +204,7 @@ export default function Login() {
                 </label>
               </div>
               {errors.length > 0 && (
-                <div className="alert alert-danger mx-0 py-2">
+                <div className="alert alert-danger mx-0">
                   <ul className="m-0">
                     {errors.map((error, index) => (
                       <li key={index}>{error.msg}</li>
@@ -143,26 +230,15 @@ export default function Login() {
                   type="submit"
                   className="btn back-primary w-100 text-light mb-2"
                 >
-                  Log in
+                  Register Account
                 </button>
               )}
             </form>
             {/* end form */}
-            <div className="d-flex justify-content-end ff-airbnb">
-              <Link
-                className="link-secondary text-decoration-none"
-                to="/auth/forgot"
-              >
-                Forgot Password?
-              </Link>
-            </div>
             <p className="text-center text-secondary mt-4 ff-airbnb">
-              Don't have an account?{" "}
-              <Link
-                className="color-primary text-decoration-none"
-                to="/auth/register"
-              >
-                Sign Up
+              Already have account?{" "}
+              <Link className="color-primary text-decoration-none" to="/auth">
+                Log in Here
               </Link>
             </p>
             <br />

@@ -1,12 +1,12 @@
 import "../../../assets/styles/navbar.css";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import PropTypes from 'prop-types';
 import RightMenu from "./RightMenu";
 import LeftMenu from "./LeftMenu";
 import Logo from "../../atoms/Logo";
 
-const Navbar = ({ isLoggedIn = false }) => {
+const Navbar = () => {
+  const isLoggedIn = Boolean(localStorage.getItem("token"));
   const [transparent, setTransparent] = useState(true);
 
   useEffect(() => {
@@ -80,9 +80,5 @@ const Navbar = ({ isLoggedIn = false }) => {
     </nav>
   );
 };
-
-Navbar.propTypes = {
-  isLoggedIn: PropTypes.bool.isRequired,
-}
 
 export default Navbar;

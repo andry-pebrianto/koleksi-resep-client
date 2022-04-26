@@ -20,8 +20,6 @@ export default function List() {
   const [sortQuery, setSortQuery] = useState("");
   const [pageQuery, setPageQuery] = useState("");
 
-  console.log(listRecipe);
-
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - List Recipe`;
     window.scrollTo(0, 0);
