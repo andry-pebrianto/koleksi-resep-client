@@ -1,12 +1,14 @@
-import { Navigate } from "react-router-dom";
 import axios from "axios";
 import {
   GET_LATEST_RECIPE_PENDING,
   GET_LATEST_RECIPE_SUCCESS,
   GET_LATEST_RECIPE_FAILED,
-  GET_LIST_RECIPE_FAILED,
   GET_LIST_RECIPE_PENDING,
   GET_LIST_RECIPE_SUCCESS,
+  GET_LIST_RECIPE_FAILED,
+  GET_DETAIL_RECIPE_PENDING,
+  GET_DETAIL_RECIPE_SUCCESS,
+  GET_DETAIL_RECIPE_FAILED,
 } from "./types";
 
 export const getLatest = () => async (dispatch) => {
@@ -22,9 +24,13 @@ export const getLatest = () => async (dispatch) => {
 
     dispatch({
       type: GET_LATEST_RECIPE_SUCCESS,
-      payload: res.data.data,
+      payload: res.data,
     });
   } catch (error) {
+    if (error.response) {
+      error.message = error.response.data.error;
+    }
+
     dispatch({
       type: GET_LATEST_RECIPE_FAILED,
       payload: error.message,
@@ -47,18 +53,67 @@ export const getList = (url, navigate) => async (dispatch) => {
 
     dispatch({
       type: GET_LIST_RECIPE_SUCCESS,
-      payload: res.data.data,
+      payload: res.data,
     });
   } catch (error) {
     if (error.response) {
       if (parseInt(error.response.data.code) === 401) {
         localStorage.clear();
-        return navigate('/auth')
+        return navigate("/auth");
       }
+
+      error.message = error.response.data.error;
     }
 
     dispatch({
       type: GET_LIST_RECIPE_FAILED,
+      payload: error.message,
+    });
+  }
+};
+
+export const getDetail = (id, navigate) => async (dispatch) => {
+  const token = localStorage.getItem("token");
+
+  try {
+    dispatch({
+      type: GET_DETAIL_RECIPE_PENDING,
+      payload: null,
+    });
+
+    const recipe = await axios.get(
+      `${process.env.REACT_APP_API_URL}/recipe/${id}`,
+      {
+        headers: { token },
+      }
+    );
+
+    const comments = await axios.get(
+      `${process.env.REACT_APP_API_URL}/recipe/${id}/comment`,
+      {
+        headers: { token },
+      }
+    );
+
+    dispatch({
+      type: GET_DETAIL_RECIPE_SUCCESS,
+      payload: {
+        recipe: recipe.data,
+        comments: comments.data,
+      },
+    });
+  } catch (error) {
+    if (error.response) {
+      if (parseInt(error.response.data.code) === 401) {
+        localStorage.clear();
+        return navigate("/auth");
+      }
+
+      error.message = error.response.data.error;
+    }
+
+    dispatch({
+      type: GET_DETAIL_RECIPE_FAILED,
       payload: error.message,
     });
   }

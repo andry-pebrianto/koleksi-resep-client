@@ -20,7 +20,7 @@ const latestRecipeReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload,
+        data: action.payload.data,
       };
     case GET_LATEST_RECIPE_FAILED:
       return {

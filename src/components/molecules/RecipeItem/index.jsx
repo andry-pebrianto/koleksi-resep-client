@@ -7,7 +7,7 @@ const RecipeItem = ({ recipe }) => {
 
   return (
     <div className="col">
-      <Link to={`/detail/${id}`}>
+      <Link to={`/recipe/${id}`}>
         <div className="card align-items-center">
           <p className="title text-dark text-str back-primary px-2 py-1 rounded">
             {title}

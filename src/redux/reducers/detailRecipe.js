@@ -1,30 +1,30 @@
 import {
-  GET_LIST_RECIPE_FAILED,
-  GET_LIST_RECIPE_PENDING,
-  GET_LIST_RECIPE_SUCCESS,
+  GET_DETAIL_RECIPE_PENDING,
+  GET_DETAIL_RECIPE_SUCCESS,
+  GET_DETAIL_RECIPE_FAILED,
 } from "../actions/types";
 
 const initialState = {
   isLoading: false,
   isError: false,
-  data: [],
-  pagination: [],
+  data: {},
+  comments: [],
   error: null,
 };
 
-const listRecipeReducer = (state = initialState, action) => {
+const detailRecipeReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_LIST_RECIPE_PENDING:
+    case GET_DETAIL_RECIPE_PENDING:
       return { ...state, isLoading: true };
-    case GET_LIST_RECIPE_SUCCESS:
+    case GET_DETAIL_RECIPE_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload.data,
-        pagination: action.payload.pagination,
+        data: action.payload.recipe.data,
+        comments: action.payload.comments.data,
       };
-    case GET_LIST_RECIPE_FAILED:
+    case GET_DETAIL_RECIPE_FAILED:
       return {
         ...state,
         isLoading: false,
@@ -36,4 +36,4 @@ const listRecipeReducer = (state = initialState, action) => {
   }
 };
 
-export default listRecipeReducer;
+export default detailRecipeReducer;

@@ -5,6 +5,7 @@ import Landing from "../pages/Landing";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import List from "../pages/recipe/List";
+import Detail from "../pages/recipe/Detail";
 import NotFound from "../pages/NotFound";
 
 const PrivateRoute = ({ children }) => {
@@ -59,6 +60,14 @@ export default function router() {
             element={
               <PrivateRoute>
                 <List />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/recipe/:id"
+            element={
+              <PrivateRoute>
+                <Detail />
               </PrivateRoute>
             }
           />

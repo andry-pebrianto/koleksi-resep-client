@@ -9,7 +9,6 @@ import RecipeItem from "../../components/molecules/RecipeItem";
 import Footer from "../../components/organisms/Footer";
 
 export default function List() {
-  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const { listRecipe } = useSelector((state) => state);
 
@@ -26,10 +25,6 @@ export default function List() {
   }, []);
 
   useEffect(() => {
-    if (!localStorage.getItem("token")) {
-      return navigate("/login");
-    }
-
     let url = `${process.env.REACT_APP_API_URL}/recipe?`;
 
     setSearchQuery("");
@@ -82,7 +77,7 @@ export default function List() {
   return (
     <>
       {/* navbar */}
-      <Navbar isLoggedIn={Boolean(token)} />
+      <Navbar />
       {/* content */}
       <div className="container">
         <section className="list mb-10">
