@@ -33,51 +33,57 @@ function MyRecipe({ my, profile, recipes }) {
   };
 
   return (
-    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-2 gx-4 mt-2">
-      {recipes.map((recipe) => (
-        <div key={recipe.id} className="col mt-4">
-          <div className="card border-0">
-            <div className="card-body p-0">
-              <Link to={`/recipe/${recipe.id}`}>
-                <img
-                  src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
-                  alt={recipe.title}
-                />
-                <p className="title text-dark back-primary p-1 rounded">
-                  {recipe.title}
-                </p>
-              </Link>
-              {my && (
-                <>
-                  <div className="action">
-                    <Link to={`/recipe/${recipe.id}/edit`}>
-                      <i
-                        className="text-dark back-primary p-2 mx-1"
-                        title="Edit Recipe"
-                      >
-                        <FaRegEdit />
-                      </i>
-                    </Link>
-                    <button
-                      onClick={() => removeRecipe(recipe.id)}
-                      type="button"
-                      className="btn btn-none p-0 m-0"
-                    >
-                      <i
-                        className="text-dark back-primary p-2 mx-1"
-                        title="Delete Recipe"
-                      >
-                        <FaRegTrashAlt />
-                      </i>
-                    </button>
-                  </div>
-                </>
-              )}
+    <>
+      {recipes.length ? (
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-2 gx-4 mt-2">
+          {recipes.map((recipe) => (
+            <div key={recipe.id} className="col mt-4">
+              <div className="card border-0">
+                <div className="card-body p-0">
+                  <Link to={`/recipe/${recipe.id}`}>
+                    <img
+                      src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
+                      alt={recipe.title}
+                    />
+                    <p className="title text-dark back-primary p-1 rounded">
+                      {recipe.title}
+                    </p>
+                  </Link>
+                  {my && (
+                    <>
+                      <div className="action">
+                        <Link to={`/recipe/${recipe.id}/edit`}>
+                          <i
+                            className="text-dark back-primary p-2 mx-1"
+                            title="Edit Recipe"
+                          >
+                            <FaRegEdit />
+                          </i>
+                        </Link>
+                        <button
+                          onClick={() => removeRecipe(recipe.id)}
+                          type="button"
+                          className="btn btn-none p-0 m-0"
+                        >
+                          <i
+                            className="text-dark back-primary p-2 mx-1"
+                            title="Delete Recipe"
+                          >
+                            <FaRegTrashAlt />
+                          </i>
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : (
+        <h4 className="my-5">You have not created a recipe yet</h4>
+      )}
+    </>
   );
 }
 
