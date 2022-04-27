@@ -192,3 +192,27 @@ export const postRecipe = async (data, setErrors) => {
     return false;
   }
 };
+
+export const putRecipe = async (id, data, setErrors) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.put(`${process.env.REACT_APP_API_URL}/recipe/${id}`, data, {
+      headers: { "Content-Type": "multipart/form-data", token },
+    });
+
+    return true;
+  } catch (error) {
+    if (error.response) {
+      if (Array.isArray(error.response.data.error)) {
+        setErrors(error.response.data.error);
+      } else {
+        setErrors([{ msg: error.response.data.error }]);
+      }
+    } else {
+      setErrors([{ msg: error.message }]);
+    }
+
+    return false;
+  }
+};

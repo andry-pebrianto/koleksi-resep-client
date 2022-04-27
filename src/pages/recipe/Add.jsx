@@ -1,12 +1,12 @@
 import "../../assets/styles/add.css";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../components/organisms/Navbar";
-import Footer from "../../components/organisms/Footer";
 import { createToast } from "../../utils/createToast";
 import { postRecipe } from "../../redux/actions/recipe";
+import Navbar from "../../components/organisms/Navbar";
+import Footer from "../../components/organisms/Footer";
 
-export default function Add({ edit }) {
+export default function Add() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,11 +18,9 @@ export default function Add({ edit }) {
   const [video, setVideo] = useState(null);
 
   useEffect(() => {
-    document.title = edit
-      ? "Food Recipe - Edit Recipe"
-      : "Food Recipe - Add Recipe";
+    document.title = `${process.env.REACT_APP_APP_NAME} - Add Recipe`;
     window.scrollTo(0, 0);
-  }, [edit]);
+  }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -46,7 +44,7 @@ export default function Add({ edit }) {
 
       const addRecipeStatus = await postRecipe(formData, setErrors);
       if (addRecipeStatus) {
-        createToast("Add Recipe Success");
+        createToast(`Add Recipe Success`);
         navigate("/myprofile");
       }
 
@@ -171,7 +169,7 @@ export default function Add({ edit }) {
                   type="submit"
                   className="btn back-primary w-100 text-light mb-2"
                 >
-                  {edit ? "Update" : "Post"}
+                  Post
                 </button>
               )}
             </div>

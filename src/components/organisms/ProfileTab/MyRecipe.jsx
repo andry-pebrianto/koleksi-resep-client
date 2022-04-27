@@ -50,7 +50,7 @@ const MyRecipe = ({ my, profile, recipes }) => {
               {my && (
                 <>
                   <div className="action">
-                    <Link to={`/edit/${recipe.id}`}>
+                    <Link to={`/recipe/${recipe.id}/edit`}>
                       <i
                         className="text-dark back-primary p-2 mx-1"
                         title="Edit Recipe"

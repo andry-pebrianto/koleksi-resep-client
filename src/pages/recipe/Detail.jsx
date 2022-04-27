@@ -48,29 +48,31 @@ export default function Detail() {
               <h2 className="mt-12 mb-10">{detailRecipe.error}</h2>
             ) : (
               <>
+                {/* Detail Recipe */}
                 <DetailRecipe recipe={detailRecipe.data} />
-              </>
-            )}
-          </>
-        )}
 
-        {recipeComments.isLoading ? (
-          <div className="mt-12 mb-10 d-flex justify-content-center">
-            <div
-              className="spinner-border mt-3"
-              style={{ width: "3rem", height: "3rem" }}
-              role="status"
-            >
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : (
-          <>
-            {recipeComments.isError ? (
-              <h2 className="mt-12 mb-10">{recipeComments.error}</h2>
-            ) : (
-              <>
-                <DetailComment comments={recipeComments.data} />
+                {/* Comments */}
+                {recipeComments.isLoading ? (
+                  <div className="mt-12 mb-10 d-flex justify-content-center">
+                    <div
+                      className="spinner-border mt-3"
+                      style={{ width: "3rem", height: "3rem" }}
+                      role="status"
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {recipeComments.isError ? (
+                      <h2 className="mt-12 mb-10">{recipeComments.error}</h2>
+                    ) : (
+                      <>
+                        <DetailComment comments={recipeComments.data} />
+                      </>
+                    )}
+                  </>
+                )}
               </>
             )}
           </>

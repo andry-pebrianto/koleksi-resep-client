@@ -56,33 +56,35 @@ export default function Profile({ my = false }) {
               <h2 className="mt-12 mb-10">{detailUser.error}</h2>
             ) : (
               <>
+                {/* Profile Data */}
                 <ProfileData profile={detailUser.data} />
-              </>
-            )}
-          </>
-        )}
 
-        {userRecipes.isLoading && detailUser.isLoading ? (
-          <div className="mt-12 mb-10 d-flex justify-content-center">
-            <div
-              className="spinner-border mt-3"
-              style={{ width: "3rem", height: "3rem" }}
-              role="status"
-            >
-              <span className="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        ) : (
-          <>
-            {userRecipes.isError ? (
-              <h2 className="mt-12 mb-10">{userRecipes.error}</h2>
-            ) : (
-              <>
-                <ProfileTab
-                  my={my}
-                  profile={detailUser.data}
-                  myRecipe={userRecipes.data}
-                />
+                {/* User Recipes */}
+                {userRecipes.isLoading && detailUser.isLoading ? (
+                  <div className="mt-12 mb-10 d-flex justify-content-center">
+                    <div
+                      className="spinner-border mt-3"
+                      style={{ width: "3rem", height: "3rem" }}
+                      role="status"
+                    >
+                      <span className="visually-hidden">Loading...</span>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    {userRecipes.isError ? (
+                      <h2 className="mt-12 mb-10">{userRecipes.error}</h2>
+                    ) : (
+                      <>
+                        <ProfileTab
+                          my={my}
+                          profile={detailUser.data}
+                          myRecipe={userRecipes.data}
+                        />
+                      </>
+                    )}
+                  </>
+                )}
               </>
             )}
           </>
