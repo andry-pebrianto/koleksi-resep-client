@@ -22,7 +22,7 @@ export default function Video() {
 
   useEffect(() => {
     dispatch(getDetailRecipe(urlParams.id, navigate));
-    dispatch(getListRecipe(`${process.env.REACT_APP_API_URL}/recipe`));
+    dispatch(getListRecipe(`${process.env.REACT_APP_API_URL}/recipe?limit=25`));
   }, [dispatch, navigate, urlParams.id]);
 
   return (
@@ -89,21 +89,16 @@ export default function Video() {
                   .slice(0, 3)
                   .map((recipe) => (
                     <div className="card my-2 mx-2 border-0">
-                      <img
-                        src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
-                        className="card-img-top"
-                        alt={recipe.title}
-                      />
-                      <div className="card-body">
-                        <h5 className="card-title">
-                          <a
-                            className="text-decoration-none text-dark"
-                            href="/detail.html"
-                          >
-                            {recipe.title}
-                          </a>
-                        </h5>
-                      </div>
+                      <Link className="text-decoration-none text-dark" to={`/recipe/${recipe.id}`}>
+                        <img
+                          src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
+                          className="card-img-top"
+                          alt={recipe.title}
+                        />
+                        <div className="card-body">
+                          <h5 className="card-title">{recipe.title}</h5>
+                        </div>
+                      </Link>
                     </div>
                   ))}
               </>

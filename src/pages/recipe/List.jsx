@@ -74,6 +74,8 @@ export default function List() {
     return navigate(url);
   };
 
+  console.log(sortQuery);
+
   return (
     <>
       {/* navbar */}
@@ -95,6 +97,38 @@ export default function List() {
                 value={searchQuery}
               />
             </form>
+          </div>
+          <div className="row mx-auto" style={{ maxWidth: "600px" }}>
+            <div className="col-12 col-sm-6">
+              <form className="d-flex my-2" onSubmit={search}>
+                <select
+                  className="form-select form-select-md"
+                  onChange={(e) => setSortQuery(e.target.value)}
+                  value={sortQuery}
+                >
+                  <option value="">Sort By</option>
+                  <option value="title">Title</option>
+                  <option value="date">Date</option>
+                </select>
+                <button className="ms-2 btn btn-primary" type="submit">
+                  Apply
+                </button>
+              </form>
+            </div>
+            <div className="col-12 col-sm-6">
+              <form className="d-flex my-2" onSubmit={search}>
+                <input
+                  type="number"
+                  className="form-control"
+                  placeholder="Limit"
+                  onChange={(e) => setLimitQuery(e.target.value)}
+                  value={limitQuery}
+                />
+                <button className="ms-2 btn btn-primary" type="submit">
+                  Apply
+                </button>
+              </form>
+            </div>
           </div>
           {listRecipe.isLoading ? (
             <div className="d-flex justify-content-center">
