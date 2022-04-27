@@ -5,6 +5,7 @@ import { register } from '../../redux/actions/auth';
 import SideAuth from '../../components/molecules/SideAuth';
 import Logo from '../../components/atoms/Logo';
 import { createToast } from '../../utils/createToast';
+import PasswordInput from '../../components/atoms/PasswordInput';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -162,39 +163,18 @@ export default function Register() {
                   placeholder="Photo"
                 />
               </div>
-              <div className="mb-3">
-                <label
-                  htmlFor="password"
-                  className="form-label"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="Required"
-                >
-                  * Create New Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control form-control-sm p-3"
-                  id="password"
-                  onChange={inputChangeHandler}
-                  required
-                  placeholder="Create New Password"
-                  value={form.password}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="passwordConfirm" className="form-label">
-                  Password Confirmation
-                </label>
-                <input
-                  type="password"
-                  className="form-control form-control-sm p-3"
-                  id="passwordConfirm"
-                  onChange={inputChangeHandler}
-                  placeholder="Password Confirmation"
-                  value={form.passwordConfirm}
-                />
-              </div>
+              <PasswordInput
+                password={form.password}
+                setPassword={inputChangeHandler}
+                id="password"
+                placeholder="Create New Password"
+              />
+              <PasswordInput
+                password={form.passwordConfirm}
+                setPassword={inputChangeHandler}
+                id="passwordConfirm"
+                placeholder="Password Confirmation"
+              />
               <div className="mb-3 form-check">
                 <input
                   type="checkbox"

@@ -5,6 +5,7 @@ import { login } from '../../redux/actions/auth';
 import SideAuth from '../../components/molecules/SideAuth';
 import Logo from '../../components/atoms/Logo';
 import { createToast } from '../../utils/createToast';
+import PasswordInput from '../../components/atoms/PasswordInput';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -87,26 +88,12 @@ export default function Login() {
                   value={form.email}
                 />
               </div>
-              <div className="mb-3">
-                <label
-                  htmlFor="password"
-                  className="form-label"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="Required"
-                >
-                  * Password
-                </label>
-                <input
-                  type="password"
-                  className="form-control form-control-sm p-3"
-                  id="password"
-                  onChange={inputChangeHandler}
-                  required
-                  placeholder="Password"
-                  value={form.password}
-                />
-              </div>
+              <PasswordInput
+                password={form.password}
+                setPassword={inputChangeHandler}
+                id="password"
+                placeholder="Password"
+              />
               <div className="mb-3 form-check">
                 <input
                   type="checkbox"
