@@ -168,3 +168,27 @@ export const deleteRecipe = async (id, setError) => {
     return false;
   }
 };
+
+export const postRecipe = async (data, setErrors) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.post(`${process.env.REACT_APP_API_URL}/recipe`, data, {
+      headers: { "Content-Type": "multipart/form-data", token },
+    });
+
+    return true;
+  } catch (error) {
+    if (error.response) {
+      if (Array.isArray(error.response.data.error)) {
+        setErrors(error.response.data.error);
+      } else {
+        setErrors([{ msg: error.response.data.error }]);
+      }
+    } else {
+      setErrors([{ msg: error.message }]);
+    }
+
+    return false;
+  }
+};

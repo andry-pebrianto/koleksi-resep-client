@@ -35,10 +35,10 @@ const MyRecipe = ({ my, profile, recipes }) => {
   return (
     <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gy-2 gx-4 mt-2">
       {recipes.map((recipe) => (
-        <div key={recipe.id} className="col">
+        <div key={recipe.id} className="col mt-4">
           <div className="card border-0">
             <div className="card-body p-0">
-              <Link to={`/detail/${recipe.id}`}>
+              <Link to={`/recipe/${recipe.id}`}>
                 <img
                   src={process.env.REACT_APP_API_URL + "/photo/" + recipe.photo}
                   alt={recipe.title}
