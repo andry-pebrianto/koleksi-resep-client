@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import PropTypes from "prop-types";
+import ReactPlayer from "react-player";
 import { FaPlay, FaRegBookmark, FaRegThumbsUp } from "react-icons/fa";
 
 const DetailRecipe = ({ recipe }) => {
@@ -47,17 +48,24 @@ const DetailRecipe = ({ recipe }) => {
           {recipe.ingredients}
         </pre>
       </div>
-      <div className="video-step">
-        <h1 className="fs-2 mb-3">Video Step</h1>
-        <Link
-          to={`/video/${recipe.id}`}
-          className="btn back-primary text-light"
-        >
-          <i className="fas fa-play">
-            <FaPlay />
-          </i>
-        </Link>
-      </div>
+      {recipe.video && (
+        <div className="video-step">
+          <h1 className="fs-2 mb-3">Video Step</h1>
+          <Link
+            to={`/recipe/${recipe.id}/video`}
+            className="btn back-primary text-light"
+          >
+            <i className="fas fa-play">
+              <FaPlay />
+            </i>
+          </Link>
+
+          <ReactPlayer
+            url={`https://drive.google.com/uc?export=download&id=${recipe.video_id}`}
+            controls
+          />
+        </div>
+      )}
     </section>
   );
 };
