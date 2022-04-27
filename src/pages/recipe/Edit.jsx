@@ -31,8 +31,6 @@ export default function Edit() {
   useEffect(() => {
     async function replaceEditData() {
       try {
-        const token = localStorage.getItem("token");
-
         setIsApiLoading(true);
         setIsApiError(null);
 
@@ -40,10 +38,15 @@ export default function Edit() {
           `${process.env.REACT_APP_API_URL}/recipe/${urlParams.id}`,
           {
             headers: {
-              token,
+              token: localStorage.getItem("token"),
             },
           }
         );
+
+        // jika recipe yang akan diedit bukan milik user
+        if (res.data.data.user_id !== localStorage.getItem("id")) {
+          return navigate("/myprofile");
+        }
 
         setForm({
           title: res.data.data.title,
@@ -88,7 +91,11 @@ export default function Edit() {
       setErrors([]);
       setIsLoading(true);
 
-      const addRecipeStatus = await putRecipe(urlParams.id, formData, setErrors);
+      const addRecipeStatus = await putRecipe(
+        urlParams.id,
+        formData,
+        setErrors
+      );
       if (addRecipeStatus) {
         createToast(`Edit Recipe Success`);
         navigate("/myprofile");
