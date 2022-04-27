@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
-import { deleteRecipe } from "../../../redux/actions/recipe";
+import { deleteRecipe, getUserRecipes } from "../../../redux/actions/recipe";
 import { createToast } from "../../../utils/createToast";
-import { getDetailRecipe } from "../../../redux/actions/recipe";
 
 const MyRecipe = ({ my, profile, recipes }) => {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const MyRecipe = ({ my, profile, recipes }) => {
         const deleteStatus = await deleteRecipe(id, setError);
         if (deleteStatus) {
           createToast("Delete Recipe Success", "success");
-          dispatch(getDetailRecipe(profile.id));
+          dispatch(getUserRecipes(profile.id));
         } else {
           createToast(error, "error");
         }
