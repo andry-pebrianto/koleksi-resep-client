@@ -6,6 +6,7 @@ import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
 import List from "../pages/recipe/List";
 import Detail from "../pages/recipe/Detail";
+import Profile from "../pages/user/Profile";
 import NotFound from "../pages/NotFound";
 
 const PrivateRoute = ({ children }) => {
@@ -72,6 +73,22 @@ export default function router() {
             }
           />
         </Route>
+        <Route
+          path="/myprofile"
+          element={
+            <PrivateRoute>
+              <Profile my />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile/:id"
+          element={
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

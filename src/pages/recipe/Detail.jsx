@@ -30,7 +30,7 @@ export default function Detail() {
       <Navbar />
       <div className="container">
         {detailRecipe.isLoading ? (
-          <div className="mt-10 mb-10 d-flex justify-content-center">
+          <div className="mt-12 mb-10 d-flex justify-content-center">
             <div
               className="spinner-border mt-3"
               style={{ width: "3rem", height: "3rem" }}

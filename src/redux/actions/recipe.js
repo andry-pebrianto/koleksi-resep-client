@@ -39,9 +39,9 @@ export const getLatest = () => async (dispatch) => {
 };
 
 export const getList = (url, navigate) => async (dispatch) => {
-  const token = localStorage.getItem("token");
-
   try {
+    const token = localStorage.getItem("token");
+
     dispatch({
       type: GET_LIST_RECIPE_PENDING,
       payload: null,
@@ -73,9 +73,9 @@ export const getList = (url, navigate) => async (dispatch) => {
 };
 
 export const getDetail = (id, navigate) => async (dispatch) => {
-  const token = localStorage.getItem("token");
-
   try {
+    const token = localStorage.getItem("token");
+
     dispatch({
       type: GET_DETAIL_RECIPE_PENDING,
       payload: null,
@@ -116,5 +116,25 @@ export const getDetail = (id, navigate) => async (dispatch) => {
       type: GET_DETAIL_RECIPE_FAILED,
       payload: error.message,
     });
+  }
+};
+
+export const deleteRecipe = async (id, setError) => {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.delete(`${process.env.REACT_APP_API_URL}/recipe/${id}`, {
+      headers: { token },
+    });
+
+    return true;
+  } catch (error) {
+    if (error.response) {
+      setError(error.response.data.error);
+    } else {
+      setError(error.message);
+    }
+
+    return false;
   }
 };

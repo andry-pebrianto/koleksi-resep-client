@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { FaPlay, FaRegBookmark, FaRegThumbsUp } from "react-icons/fa";
 
 const DetailRecipe = ({ recipe }) => {
@@ -9,23 +9,19 @@ const DetailRecipe = ({ recipe }) => {
     <section className="detail ff-airbnb mb-5">
       <h1 className="display-5 text-center color-blue">{recipe.title}</h1>
       <div className="text-center mb-3 position-relative">
-        {recipe.id && (
-          <>
-            <img
-              className="mt-4"
-              src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
-              alt={recipe.title}
-            />
-            <div className="icon">
-              <i className="icon-item back-primary text-light p-3 fs-5 rounded-3 me-1">
-                <FaRegBookmark />
-              </i>
-              <i className="icon-item bg-light color-primary p-3 fs-5 rounded-3 ms-1">
-                <FaRegThumbsUp />
-              </i>
-            </div>
-          </>
-        )}
+        <img
+          className="mt-4"
+          src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
+          alt={recipe.title}
+        />
+        <div className="icon">
+          <i className="icon-item back-primary text-light p-3 fs-5 rounded-3 me-1">
+            <FaRegBookmark />
+          </i>
+          <i className="icon-item bg-light color-primary p-3 fs-5 rounded-3 ms-1">
+            <FaRegThumbsUp />
+          </i>
+        </div>
       </div>
       <div className="author mb-5">
         <div className="d-flex justify-content-center">
@@ -62,10 +58,10 @@ const DetailRecipe = ({ recipe }) => {
       </div>
     </section>
   );
-}
+};
 
 DetailRecipe.propTypes = {
   recipe: PropTypes.object.isRequired,
-}
+};
 
 export default DetailRecipe;
