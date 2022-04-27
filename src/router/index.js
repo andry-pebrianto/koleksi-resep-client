@@ -4,8 +4,9 @@ import { ToastContainer } from "react-toastify";
 import Landing from "../pages/Landing";
 import Login from "../pages/auth/Login";
 import Register from "../pages/auth/Register";
-import List from "../pages/recipe/List";
-import Detail from "../pages/recipe/Detail";
+import ListRecipe from "../pages/recipe/List";
+import DetailRecipe from "../pages/recipe/Detail";
+import AddRecipe from "../pages/recipe/Add";
 import Profile from "../pages/user/Profile";
 import NotFound from "../pages/NotFound";
 
@@ -60,7 +61,7 @@ export default function router() {
             index
             element={
               <PrivateRoute>
-                <List />
+                <ListRecipe />
               </PrivateRoute>
             }
           />
@@ -68,7 +69,15 @@ export default function router() {
             path="/recipe/:id"
             element={
               <PrivateRoute>
-                <Detail />
+                <DetailRecipe />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/recipe/add"
+            element={
+              <PrivateRoute>
+                <AddRecipe />
               </PrivateRoute>
             }
           />

@@ -9,11 +9,13 @@ const DetailRecipe = ({ recipe }) => {
     <section className="detail ff-airbnb mb-5">
       <h1 className="display-5 text-center color-blue">{recipe.title}</h1>
       <div className="text-center mb-3 position-relative">
-        <img
-          className="mt-4"
-          src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
-          alt={recipe.title}
-        />
+        {recipe.id && (
+          <img
+            className="mt-4"
+            src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
+            alt={recipe.title}
+          />
+        )}
         <div className="icon">
           <i className="icon-item back-primary text-light p-3 fs-5 rounded-3 me-1">
             <FaRegBookmark />

@@ -27,7 +27,7 @@ const LeftMenu = ({isLoggedIn}) => {
           </li>
           <li className="nav-item me-5">
             <Link to="/recipe/add" className="nav-link">
-              <span className={`${location.pathname === "/add" && "active"}`}>
+              <span className={`${location.pathname === "/recipe/add" && "active"}`}>
                 Add Recipe
               </span>
             </Link>

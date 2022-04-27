@@ -5,7 +5,7 @@ import {
   GET_DETAIL_USER_FAILED,
 } from "./types";
 
-export const getDetail = (id, navigate) => async (dispatch) => {
+export const getDetailUser = (id, navigate) => async (dispatch) => {
   const token = localStorage.getItem("token");
 
   try {
@@ -14,26 +14,13 @@ export const getDetail = (id, navigate) => async (dispatch) => {
       payload: null,
     });
 
-    const user = await axios.get(
-      `${process.env.REACT_APP_API_URL}/user/${id}`,
-      {
-        headers: { token },
-      }
-    );
-
-    const listRecipe = await axios.get(
-      `${process.env.REACT_APP_API_URL}/user/${id}/recipe`,
-      {
-        headers: { token },
-      }
-    );
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+      headers: { token },
+    });
 
     dispatch({
       type: GET_DETAIL_USER_SUCCESS,
-      payload: {
-        user: user.data,
-        listRecipe: listRecipe.data,
-      },
+      payload: res.data,
     });
   } catch (error) {
     if (error.response) {

@@ -1,28 +1,28 @@
 import {
-  GET_DETAIL_RECIPE_PENDING,
-  GET_DETAIL_RECIPE_SUCCESS,
-  GET_DETAIL_RECIPE_FAILED,
+  GET_RECIPE_COMMENTS_FAILED,
+  GET_RECIPE_COMMENTS_PENDING,
+  GET_RECIPE_COMMENTS_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
   isLoading: false,
   isError: false,
-  data: {},
+  data: [],
   error: null,
 };
 
-const detailRecipeReducer = (state = initialState, action) => {
+const recipeCommentsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_DETAIL_RECIPE_PENDING:
+    case GET_RECIPE_COMMENTS_PENDING:
       return { ...state, isLoading: true };
-    case GET_DETAIL_RECIPE_SUCCESS:
+    case GET_RECIPE_COMMENTS_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
         data: action.payload.data,
       };
-    case GET_DETAIL_RECIPE_FAILED:
+    case GET_RECIPE_COMMENTS_FAILED:
       return {
         ...state,
         isLoading: false,
@@ -34,4 +34,4 @@ const detailRecipeReducer = (state = initialState, action) => {
   }
 };
 
-export default detailRecipeReducer;
+export default recipeCommentsReducer;

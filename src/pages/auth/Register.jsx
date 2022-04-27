@@ -37,12 +37,7 @@ export default function Register() {
       formData.append("photo", photo);
     }
 
-    if (
-      !form.name ||
-      !form.email ||
-      !form.phone ||
-      !form.password
-    ) {
+    if (!form.name || !form.email || !form.phone || !form.password) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
     } else if (form.password !== form.passwordConfirm) {
       setErrors([{ msg: "Password and Password Confirm must be same" }]);
@@ -54,7 +49,10 @@ export default function Register() {
 
       const registerStatus = await register(formData, setErrors);
       if (registerStatus) {
-        createToast("Register Success, Please Activate Your Account Through Link From Email", "success");
+        createToast(
+          "Register Success, Please Activate Your Account Through Link From Email",
+          "success"
+        );
         navigate("/auth");
       }
 
@@ -109,6 +107,7 @@ export default function Register() {
                   placeholder="Name"
                   onChange={inputChangeHandler}
                   required
+                  value={form.name}
                 />
               </div>
               <div className="mb-3">
@@ -128,6 +127,7 @@ export default function Register() {
                   onChange={inputChangeHandler}
                   required
                   placeholder="E-mail"
+                  value={form.email}
                 />
               </div>
               <div className="mb-3">
@@ -147,6 +147,7 @@ export default function Register() {
                   onChange={inputChangeHandler}
                   required
                   placeholder="08XXXXXXXXXX"
+                  value={form.phone}
                 />
               </div>
               <div className="mb-3">
@@ -178,6 +179,7 @@ export default function Register() {
                   onChange={inputChangeHandler}
                   required
                   placeholder="Create New Password"
+                  value={form.password}
                 />
               </div>
               <div className="mb-3">
@@ -190,6 +192,7 @@ export default function Register() {
                   id="passwordConfirm"
                   onChange={inputChangeHandler}
                   placeholder="Password Confirmation"
+                  value={form.passwordConfirm}
                 />
               </div>
               <div className="mb-3 form-check">

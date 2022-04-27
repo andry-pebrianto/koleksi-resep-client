@@ -84,6 +84,7 @@ export default function Login() {
                   onChange={inputChangeHandler}
                   required
                   placeholder="E-mail"
+                  value={form.email}
                 />
               </div>
               <div className="mb-3">
@@ -103,6 +104,7 @@ export default function Login() {
                   onChange={inputChangeHandler}
                   required
                   placeholder="Password"
+                  value={form.password}
                 />
               </div>
               <div className="mb-3 form-check">

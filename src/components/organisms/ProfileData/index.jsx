@@ -6,11 +6,13 @@ const ProfileData = ({ profile }) => {
     <section className="profile ff-airbnb text-center mb-5">
       <div className="d-flex justify-content-center">
         <div className="position-relative">
-          <img
-            className="picture rounded-circle"
-            src={`${process.env.REACT_APP_API_URL}/photo/${profile.photo}`}
-            alt="Profile"
-          />
+          {profile.id && (
+            <img
+              className="picture rounded-circle"
+              src={`${process.env.REACT_APP_API_URL}/photo/${profile.photo}`}
+              alt="Profile"
+            />
+          )}
           <img className="icon" src={EditIcon} alt="Edit Icon" />
         </div>
       </div>

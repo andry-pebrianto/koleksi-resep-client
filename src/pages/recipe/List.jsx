@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSearch } from "react-icons/fa";
-import { getList } from "../../redux/actions/recipe";
+import { getListRecipe } from "../../redux/actions/recipe";
 import Navbar from "../../components/organisms/Navbar";
 import RecipeItem from "../../components/molecules/RecipeItem";
 import Footer from "../../components/organisms/Footer";
@@ -51,7 +51,7 @@ export default function List() {
       url += `&page=${queryParams.get("page")}`;
     }
 
-    dispatch(getList(url, navigate));
+    dispatch(getListRecipe(url, navigate));
   }, [dispatch, navigate, queryParams]);
 
   const search = (e) => {

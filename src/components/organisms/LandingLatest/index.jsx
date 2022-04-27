@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getLatest } from "../../../redux/actions/recipe";
+import { getLatestRecipe } from "../../../redux/actions/recipe";
 import RecipeItem from "../../molecules/RecipeItem";
 
 const LandingLatest = () => {
@@ -8,7 +8,7 @@ const LandingLatest = () => {
   const { latestRecipe } = useSelector((state) => state);
 
   useEffect(() => {
-    dispatch(getLatest());
+    dispatch(getLatestRecipe());
   }, [dispatch]);
 
   return (

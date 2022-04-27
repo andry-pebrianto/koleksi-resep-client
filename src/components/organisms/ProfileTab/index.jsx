@@ -4,7 +4,7 @@ import LikedRecipe from "./LikedRecipe";
 import MyRecipe from "./MyRecipe";
 import SavedRecipe from "./SavedRecipe";
 
-export default function ProfileTab({ my, profile, myRecipe }) {
+const ProfileTab = ({ my, profile, myRecipe }) => {
   const [queryParams] = useSearchParams();
   const [tab, setTab] = useState("");
 
@@ -60,3 +60,5 @@ export default function ProfileTab({ my, profile, myRecipe }) {
     </section>
   );
 }
+
+export default ProfileTab;

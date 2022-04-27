@@ -8,7 +8,6 @@ const initialState = {
   isLoading: false,
   isError: false,
   data: {},
-  listRecipe: [],
   error: null,
 };
 
@@ -21,8 +20,7 @@ const detailRecipeReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         isError: false,
-        data: action.payload.user.data,
-        listRecipe: action.payload.listRecipe.data,
+        data: action.payload.data,
       };
     case GET_DETAIL_USER_FAILED:
       return {
