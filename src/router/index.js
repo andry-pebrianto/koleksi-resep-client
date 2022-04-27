@@ -8,6 +8,7 @@ import ListRecipe from "../pages/recipe/List";
 import DetailRecipe from "../pages/recipe/Detail";
 import AddRecipe from "../pages/recipe/Add";
 import EditRecipe from "../pages/recipe/Edit";
+import VideoRecipe from "../pages/recipe/Video";
 import Profile from "../pages/user/Profile";
 import NotFound from "../pages/NotFound";
 
@@ -87,6 +88,14 @@ export default function router() {
             element={
               <PrivateRoute>
                 <EditRecipe />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/recipe/:id/video"
+            element={
+              <PrivateRoute>
+                <VideoRecipe />
               </PrivateRoute>
             }
           />
