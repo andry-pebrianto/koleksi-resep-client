@@ -1,18 +1,18 @@
-import "../../assets/styles/auth.css";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../redux/actions/auth";
-import SideAuth from "../../components/molecules/SideAuth";
-import Logo from "../../components/atoms/Logo";
-import { createToast } from "../../utils/createToast";
+import '../../assets/styles/auth.css';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { login } from '../../redux/actions/auth';
+import SideAuth from '../../components/molecules/SideAuth';
+import Logo from '../../components/atoms/Logo';
+import { createToast } from '../../utils/createToast';
 
 export default function Login() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [terms, setTerms] = useState(false);
 
@@ -24,17 +24,17 @@ export default function Login() {
     e.preventDefault();
 
     if (!form.email || !form.password) {
-      setErrors([{ msg: "All field required (*) must be filled" }]);
+      setErrors([{ msg: 'All field required (*) must be filled' }]);
     } else if (!terms) {
-      setErrors([{ msg: "You must agree terms and conditions to login" }]);
+      setErrors([{ msg: 'You must agree terms and conditions to login' }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
       const loginStatus = await login(form, setErrors);
       if (loginStatus) {
-        createToast("Login Success", "success");
-        navigate("/");
+        createToast('Login Success', 'success');
+        navigate('/');
       }
 
       setIsLoading(false);
@@ -137,7 +137,8 @@ export default function Login() {
                     className="spinner-border spinner-border-sm"
                     role="status"
                     aria-hidden="true"
-                  ></span>{" "}
+                  />
+                  {' '}
                   Loading...
                 </button>
               ) : (
@@ -159,7 +160,8 @@ export default function Login() {
               </Link>
             </div>
             <p className="text-center text-secondary mt-4 ff-airbnb">
-              Don't have an account?{" "}
+              Don&apos;t have an account?
+              {' '}
               <Link
                 className="color-primary text-decoration-none"
                 to="/auth/register"

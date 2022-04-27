@@ -1,11 +1,11 @@
-import "../../assets/styles/video.css";
-import React, { useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import ReactPlayer from "react-player";
-import { BiArrowBack } from "react-icons/bi";
-import moment from "moment";
-import { getDetailRecipe, getListRecipe } from "../../redux/actions/recipe";
+import '../../assets/styles/video.css';
+import React, { useEffect } from 'react';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import ReactPlayer from 'react-player';
+import { BiArrowBack } from 'react-icons/bi';
+import moment from 'moment';
+import { getDetailRecipe, getListRecipe } from '../../redux/actions/recipe';
 
 export default function Video() {
   const dispatch = useDispatch();
@@ -31,20 +31,22 @@ export default function Video() {
         {/* video */}
         <section className="col-12 col-lg-9">
           <div className="row change vh-100">
-            <div className="col-1 back-primary"></div>
+            <div className="col-1 back-primary" />
             <div className="col-11 d-flex justify-content-center">
               <div className="video mx-1 mx-sm-3 mx-md-5 w-100">
                 <Link
                   to={`/recipe/${detailRecipe.data.id}`}
                   className="btn btn-primary mb-3"
                 >
-                  <BiArrowBack /> Back
+                  <BiArrowBack />
+                  {' '}
+                  Back
                 </Link>
                 {detailRecipe.isLoading ? (
                   <div className="mt-12 mb-10 d-flex justify-content-center">
                     <div
                       className="spinner-border mt-3"
-                      style={{ width: "3rem", height: "3rem" }}
+                      style={{ width: '3rem', height: '3rem' }}
                       role="status"
                     >
                       <span className="visually-hidden">Loading...</span>
@@ -66,7 +68,7 @@ export default function Video() {
                           {detailRecipe.data.title}
                         </p>
                         <p className="text-secondary">
-                          {moment(detailRecipe.data.date, "YYYYMMDD").fromNow()}
+                          {moment(detailRecipe.data.date, 'YYYYMMDD').fromNow()}
                         </p>
                       </>
                     )}

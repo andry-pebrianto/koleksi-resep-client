@@ -2,7 +2,7 @@ import {
   GET_DETAIL_USER_PENDING,
   GET_DETAIL_USER_SUCCESS,
   GET_DETAIL_USER_FAILED,
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
   isLoading: false,

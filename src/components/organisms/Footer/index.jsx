@@ -1,8 +1,8 @@
-import "../../../assets/styles/footer.css";
-import React from "react";
-import { Link } from "react-router-dom";
+import '../../../assets/styles/footer.css';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Footer = () => {
+function Footer() {
   return (
     <footer className="ff-airbnb back-primary color-blue">
       <div className="top">
@@ -37,6 +37,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

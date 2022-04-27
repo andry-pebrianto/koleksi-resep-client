@@ -2,7 +2,7 @@ import {
   GET_LATEST_RECIPE_FAILED,
   GET_LATEST_RECIPE_PENDING,
   GET_LATEST_RECIPE_SUCCESS,
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
   isLoading: false,

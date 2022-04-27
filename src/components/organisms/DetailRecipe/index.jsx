@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import moment from "moment";
-import PropTypes from "prop-types";
-import { FaPlay, FaRegBookmark, FaRegThumbsUp } from "react-icons/fa";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
+import PropTypes from 'prop-types';
+import { FaPlay, FaRegBookmark, FaRegThumbsUp } from 'react-icons/fa';
 
-const DetailRecipe = ({ recipe }) => {
+function DetailRecipe({ recipe }) {
   return (
     <section className="detail ff-airbnb mb-5">
       <h1 className="display-5 text-center color-blue">{recipe.title}</h1>
@@ -28,22 +28,26 @@ const DetailRecipe = ({ recipe }) => {
       <div className="author mb-5">
         <div className="d-flex justify-content-center">
           <p className="m-0">
-            Posted by{" "}
+            Posted by
+            {' '}
             <Link
               to={`/profile/${recipe.user_id}`}
               className="m-0 text-decoration-none text-dark"
             >
               <strong>{recipe.name}</strong>
-            </Link>{" "}
+            </Link>
+            {' '}
             <span title={recipe.date}>
-              - ({moment(recipe.date, "YYYYMMDD").fromNow()})
+              - (
+              {moment(recipe.date, 'YYYYMMDD').fromNow()}
+              )
             </span>
           </p>
         </div>
       </div>
       <div className="ingredients mb-4">
         <h1 className="fs-2 mb-3">Ingredients</h1>
-        <pre className="ff-airbnb" style={{ fontSize: "16px" }}>
+        <pre className="ff-airbnb" style={{ fontSize: '16px' }}>
           {recipe.ingredients}
         </pre>
       </div>
@@ -62,7 +66,7 @@ const DetailRecipe = ({ recipe }) => {
       )}
     </section>
   );
-};
+}
 
 DetailRecipe.propTypes = {
   recipe: PropTypes.object.isRequired,

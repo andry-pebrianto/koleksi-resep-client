@@ -2,7 +2,7 @@ import {
   GET_RECIPE_COMMENTS_FAILED,
   GET_RECIPE_COMMENTS_PENDING,
   GET_RECIPE_COMMENTS_SUCCESS,
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
   isLoading: false,

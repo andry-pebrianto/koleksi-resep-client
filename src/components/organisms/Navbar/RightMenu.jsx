@@ -1,26 +1,28 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import Swal from "sweetalert2";
-import { FaRegUser } from "react-icons/fa";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import Swal from 'sweetalert2';
+import { FaRegUser } from 'react-icons/fa';
 
-const RightMenu = ({ isLoggedIn, transparent }) => {
+function RightMenu({ isLoggedIn, transparent }) {
   const navigate = useNavigate();
 
   const logout = () => {
     Swal.fire({
-      title: "Are you sure?",
-      text: "You will be Logout!",
-      icon: "warning",
+      title: 'Are you sure?',
+      text: 'You will be Logout!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, Logout!",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, Logout!',
     }).then((result) => {
       if (result.isConfirmed) {
         localStorage.clear();
-        return navigate("/auth");
+        return navigate('/auth');
       }
+
+      return 0;
     });
   };
 
@@ -32,7 +34,8 @@ const RightMenu = ({ isLoggedIn, transparent }) => {
       {isLoggedIn ? (
         <button
           onClick={logout}
-          className={`btn nav-login color-blue btn-none`}
+          type="button"
+          className="btn nav-login color-blue btn-none"
         >
           Logout
         </button>
@@ -40,7 +43,7 @@ const RightMenu = ({ isLoggedIn, transparent }) => {
         <Link
           to="/auth"
           className={`nav-login ms-2 ${
-            transparent ? "text-white" : "color-blue"
+            transparent ? 'text-white' : 'color-blue'
           }`}
         >
           Login
@@ -48,7 +51,7 @@ const RightMenu = ({ isLoggedIn, transparent }) => {
       )}
     </div>
   );
-};
+}
 
 RightMenu.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,

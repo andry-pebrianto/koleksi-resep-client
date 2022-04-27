@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const SavedRecipe = () => {
+function SavedRecipe() {
   return (
     <div className="my-5">
       <h1>Saved Recipe Tab</h1>

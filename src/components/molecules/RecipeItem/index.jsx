@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const RecipeItem = ({ recipe }) => {
+function RecipeItem({ recipe }) {
   const { id, title, photo } = recipe;
 
   return (
@@ -21,7 +21,7 @@ const RecipeItem = ({ recipe }) => {
       </Link>
     </div>
   );
-};
+}
 
 RecipeItem.propTypes = {
   recipe: PropTypes.object,

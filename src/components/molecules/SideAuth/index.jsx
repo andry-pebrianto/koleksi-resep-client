@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Logo from "../../atoms/Logo";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Logo from '../../atoms/Logo';
 
-const SideAuth = () => {
+function SideAuth() {
   return (
     <div className="side col-sm-5 col-md-6 d-none d-sm-flex">
       <div className="icon text-center w-100">
@@ -12,6 +12,6 @@ const SideAuth = () => {
       </div>
     </div>
   );
-};
+}
 
 export default SideAuth;

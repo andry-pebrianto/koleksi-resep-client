@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-const Pagination = ({ pagination, applyFilter }) => {
+function Pagination({ pagination, applyFilter }) {
   const tmp = [];
-  for (let i = 0; i < pagination.totalPage; i++) {
+  for (let i = 0; i < pagination.totalPage; i += 1) {
     tmp.push(i);
   }
 
@@ -10,10 +10,11 @@ const Pagination = ({ pagination, applyFilter }) => {
     <nav className="mt-5">
       <ul className="pagination">
         <li
-          className={`page-item ${pagination.currentPage <= 1 && "disabled"}`}
+          className={`page-item ${pagination.currentPage <= 1 && 'disabled'}`}
         >
           <button
             className="page-link"
+            type="button"
             onClick={() => applyFilter(pagination.currentPage - 1)}
           >
             Previous
@@ -22,12 +23,13 @@ const Pagination = ({ pagination, applyFilter }) => {
         {tmp.map((item, index) => (
           <li
             className={`page-item ${
-              index + 1 === pagination.currentPage && "active"
+              index + 1 === pagination.currentPage && 'active'
             }`}
             key={Math.random(100)}
           >
             <button
               onClick={() => applyFilter(index + 1)}
+              type="button"
               className="page-link"
             >
               {index + 1}
@@ -36,11 +38,12 @@ const Pagination = ({ pagination, applyFilter }) => {
         ))}
         <li
           className={`page-item ${
-            pagination.currentPage === pagination.totalPage && "disabled"
+            pagination.currentPage === pagination.totalPage && 'disabled'
           }`}
         >
           <button
             className="page-link"
+            type="button"
             onClick={() => applyFilter(pagination.currentPage + 1)}
           >
             Next
@@ -49,6 +52,6 @@ const Pagination = ({ pagination, applyFilter }) => {
       </ul>
     </nav>
   );
-};
+}
 
 export default Pagination;

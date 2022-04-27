@@ -1,13 +1,13 @@
-import "../../assets/styles/list.css";
-import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { FaSearch } from "react-icons/fa";
-import { getListRecipe } from "../../redux/actions/recipe";
-import Navbar from "../../components/organisms/Navbar";
-import RecipeItem from "../../components/molecules/RecipeItem";
-import Footer from "../../components/organisms/Footer";
-import Pagination from "../../components/molecules/Pagination";
+import '../../assets/styles/list.css';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { FaSearch } from 'react-icons/fa';
+import { getListRecipe } from '../../redux/actions/recipe';
+import Navbar from '../../components/organisms/Navbar';
+import RecipeItem from '../../components/molecules/RecipeItem';
+import Footer from '../../components/organisms/Footer';
+import Pagination from '../../components/molecules/Pagination';
 
 export default function List() {
   const dispatch = useDispatch();
@@ -15,9 +15,9 @@ export default function List() {
 
   const navigate = useNavigate();
   const [queryParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [limitQuery, setLimitQuery] = useState("");
-  const [sortQuery, setSortQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [limitQuery, setLimitQuery] = useState('');
+  const [sortQuery, setSortQuery] = useState('');
 
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - List Recipe`;
@@ -27,39 +27,33 @@ export default function List() {
   useEffect(() => {
     let url = `${process.env.REACT_APP_API_URL}/recipe?`;
 
-    setSearchQuery("");
-    if (queryParams.get("search")) {
-      setSearchQuery(queryParams.get("search"));
-      url += `&search=${queryParams.get("search")}`;
+    setSearchQuery('');
+    if (queryParams.get('search')) {
+      setSearchQuery(queryParams.get('search'));
+      url += `&search=${queryParams.get('search')}`;
     }
 
-    setLimitQuery("");
-    if (queryParams.get("limit")) {
-      setLimitQuery(queryParams.get("limit"));
-      url += `&limit=${queryParams.get("limit")}`;
+    setLimitQuery('');
+    if (queryParams.get('limit')) {
+      setLimitQuery(queryParams.get('limit'));
+      url += `&limit=${queryParams.get('limit')}`;
     }
 
-    setSortQuery("");
-    if (queryParams.get("sort")) {
-      setSortQuery(queryParams.get("sort"));
-      url += `&sort=${queryParams.get("sort")}`;
+    setSortQuery('');
+    if (queryParams.get('sort')) {
+      setSortQuery(queryParams.get('sort'));
+      url += `&sort=${queryParams.get('sort')}`;
     }
 
-    if (queryParams.get("page")) {
-      url += `&page=${queryParams.get("page")}`;
+    if (queryParams.get('page')) {
+      url += `&page=${queryParams.get('page')}`;
     }
 
     dispatch(getListRecipe(url, navigate));
   }, [dispatch, navigate, queryParams]);
 
-  const search = (e) => {
-    e.preventDefault();
-
-    applyFilter();
-  };
-
-  const applyFilter = (page = "") => {
-    let url = "/recipe?";
+  const applyFilter = (page = '') => {
+    let url = '/recipe?';
     if (searchQuery) {
       url += `&search=${searchQuery}`;
     }
@@ -74,6 +68,12 @@ export default function List() {
     }
 
     return navigate(url);
+  };
+
+  const search = (e) => {
+    e.preventDefault();
+
+    applyFilter();
   };
 
   return (
@@ -98,7 +98,7 @@ export default function List() {
               />
             </form>
           </div>
-          <div className="row mx-auto" style={{ maxWidth: "600px" }}>
+          <div className="row mx-auto" style={{ maxWidth: '600px' }}>
             <div className="col-12 col-sm-6">
               <form className="d-flex my-2" onSubmit={search}>
                 <select
@@ -134,7 +134,7 @@ export default function List() {
             <div className="d-flex justify-content-center">
               <div
                 className="spinner-border mt-3"
-                style={{ width: "3rem", height: "3rem" }}
+                style={{ width: '3rem', height: '3rem' }}
                 role="status"
               >
                 <span className="visually-hidden">Loading...</span>

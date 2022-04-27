@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import HeroImage from "../../../assets/images/landing-hero.webp";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import HeroImage from '../../../assets/images/landing-hero.webp';
 
-const LandingHero = () => {
+function LandingHero() {
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
 
   const search = (e, query) => {
     e.preventDefault();
 
-    return navigate("/recipe?search=" + query);
+    return navigate(`/recipe?search=${query}`);
   };
 
   return (
@@ -35,6 +35,6 @@ const LandingHero = () => {
       </div>
     </section>
   );
-};
+}
 
 export default LandingHero;

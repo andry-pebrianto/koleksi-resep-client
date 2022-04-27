@@ -1,8 +1,8 @@
-import React from "react";
-import Right from "./Right";
-import SuggestionImage from "../../../assets/images/landing-suggestion.webp";
+import React from 'react';
+import Right from './Right';
+import SuggestionImage from '../../../assets/images/landing-suggestion.webp';
 
-const LandingSuggestion = () => {
+function LandingSuggestion() {
   return (
     <section className="suggestion ff-airbnb mb-10">
       <div className="title-section mb-4 mb-md-5">
@@ -11,12 +11,12 @@ const LandingSuggestion = () => {
       <div className="row">
         <div className="left col-12 col-md-6">
           <img src={SuggestionImage} alt="Suggestion" />
-          <div></div>
+          <div />
         </div>
         <Right />
       </div>
     </section>
   );
-};
+}
 
 export default LandingSuggestion;

@@ -1,18 +1,18 @@
-import "../../assets/styles/add.css";
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createToast } from "../../utils/createToast";
-import { postRecipe } from "../../redux/actions/recipe";
-import Navbar from "../../components/organisms/Navbar";
-import Footer from "../../components/organisms/Footer";
+import '../../assets/styles/add.css';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { createToast } from '../../utils/createToast';
+import { postRecipe } from '../../redux/actions/recipe';
+import Navbar from '../../components/organisms/Navbar';
+import Footer from '../../components/organisms/Footer';
 
 export default function Add() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    title: "",
-    ingredients: "",
+    title: '',
+    ingredients: '',
   });
   const [photo, setPhoto] = useState(null);
   const [video, setVideo] = useState(null);
@@ -26,26 +26,26 @@ export default function Add() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("title", form.title);
-    formData.append("ingredients", form.ingredients);
+    formData.append('title', form.title);
+    formData.append('ingredients', form.ingredients);
 
     if (photo) {
-      formData.append("photo", photo);
+      formData.append('photo', photo);
     }
     if (video) {
-      formData.append("video", video);
+      formData.append('video', video);
     }
 
     if (!form.title || !form.ingredients) {
-      setErrors([{ msg: "All field required (*) must be filled" }]);
+      setErrors([{ msg: 'All field required (*) must be filled' }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
       const addRecipeStatus = await postRecipe(formData, setErrors);
       if (addRecipeStatus) {
-        createToast(`Add Recipe Success`);
-        navigate("/myprofile");
+        createToast('Add Recipe Success');
+        navigate('/myprofile');
       }
 
       setIsLoading(false);
@@ -124,7 +124,7 @@ export default function Add() {
                 onChange={inputChangeHandler}
                 required
                 defaultValue={form.ingredients}
-              ></textarea>
+              />
             </div>
             <div className="mb-3">
               <label htmlFor="photo" className="form-label me-2">
@@ -161,7 +161,8 @@ export default function Add() {
                     className="spinner-border spinner-border-sm"
                     role="status"
                     aria-hidden="true"
-                  ></span>{" "}
+                  />
+                  {' '}
                   Loading...
                 </button>
               ) : (

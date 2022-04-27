@@ -2,7 +2,7 @@ import {
   GET_USER_RECIPES_FAILED,
   GET_USER_RECIPES_PENDING,
   GET_USER_RECIPES_SUCCESS,
-} from "../actions/types";
+} from '../actions/types';
 
 const initialState = {
   isLoading: false,

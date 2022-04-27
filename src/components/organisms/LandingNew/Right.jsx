@@ -1,7 +1,7 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Right = () => {
+function Right() {
   return (
     <div className="right col-12 col-md-6">
       <div>
@@ -12,15 +12,15 @@ const Right = () => {
           hurry? That’s right!
         </p>
         <Link
-          to="#"
+          to="/"
           className="btn back-primary text-light"
-          style={{ width: "150px" }}
+          style={{ width: '150px' }}
         >
           Learn More
         </Link>
       </div>
     </div>
   );
-};
+}
 
 export default Right;

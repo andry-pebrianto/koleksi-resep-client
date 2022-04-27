@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   GET_DETAIL_USER_PENDING,
   GET_DETAIL_USER_SUCCESS,
   GET_DETAIL_USER_FAILED,
-} from "./types";
+} from './types';
 
 export const getDetailUser = (id, navigate) => async (dispatch) => {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem('token');
 
   try {
     dispatch({
@@ -24,9 +24,9 @@ export const getDetailUser = (id, navigate) => async (dispatch) => {
     });
   } catch (error) {
     if (error.response) {
-      if (parseInt(error.response.data.code) === 401) {
+      if (parseInt(error.response.data.code, 10) === 401) {
         localStorage.clear();
-        return navigate("/auth");
+        return navigate('/auth');
       }
 
       error.message = error.response.data.error;

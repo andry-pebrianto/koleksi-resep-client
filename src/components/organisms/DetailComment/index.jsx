@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const DetailComment = ({ comments }) => {
+function DetailComment({ comments }) {
   return (
     <section className="comment ff-airbnb mb-10">
       <div className="form-comment mb-4">
@@ -13,7 +13,7 @@ const DetailComment = ({ comments }) => {
               placeholder="Comment"
               id="comment"
               rows="10"
-            ></textarea>
+            />
           </div>
           <div className="d-flex justify-content-center">
             <button
@@ -58,7 +58,7 @@ const DetailComment = ({ comments }) => {
       </div>
     </section>
   );
-};
+}
 
 DetailComment.propTypes = {
   comments: PropTypes.array.isRequired,

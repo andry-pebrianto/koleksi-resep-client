@@ -1,21 +1,21 @@
-import "../../assets/styles/auth.css";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { register } from "../../redux/actions/auth";
-import SideAuth from "../../components/molecules/SideAuth/index.jsx";
-import Logo from "../../components/atoms/Logo";
-import { createToast } from "../../utils/createToast";
+import '../../assets/styles/auth.css';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { register } from '../../redux/actions/auth';
+import SideAuth from '../../components/molecules/SideAuth';
+import Logo from '../../components/atoms/Logo';
+import { createToast } from '../../utils/createToast';
 
 export default function Register() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    passwordConfirm: "",
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    passwordConfirm: '',
   });
   const [photo, setPhoto] = useState(null);
   const [terms, setTerms] = useState(false);
@@ -28,21 +28,21 @@ export default function Register() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("name", form.name);
-    formData.append("email", form.email);
-    formData.append("phone", form.phone);
-    formData.append("password", form.password);
+    formData.append('name', form.name);
+    formData.append('email', form.email);
+    formData.append('phone', form.phone);
+    formData.append('password', form.password);
 
     if (photo) {
-      formData.append("photo", photo);
+      formData.append('photo', photo);
     }
 
     if (!form.name || !form.email || !form.phone || !form.password) {
-      setErrors([{ msg: "All field required (*) must be filled" }]);
+      setErrors([{ msg: 'All field required (*) must be filled' }]);
     } else if (form.password !== form.passwordConfirm) {
-      setErrors([{ msg: "Password and Password Confirm must be same" }]);
+      setErrors([{ msg: 'Password and Password Confirm must be same' }]);
     } else if (!terms) {
-      setErrors([{ msg: "You must agree terms and conditions to register" }]);
+      setErrors([{ msg: 'You must agree terms and conditions to register' }]);
     } else {
       setErrors([]);
       setIsLoading(true);
@@ -50,10 +50,10 @@ export default function Register() {
       const registerStatus = await register(formData, setErrors);
       if (registerStatus) {
         createToast(
-          "Register Success, Please Activate Your Account Through Link From Email",
-          "success"
+          'Register Success, Please Activate Your Account Through Link From Email',
+          'success',
         );
-        navigate("/auth");
+        navigate('/auth');
       }
 
       setIsLoading(false);
@@ -83,7 +83,7 @@ export default function Register() {
               </Link>
             </div>
             <h1 className="fs-4 fw-bold color-primary text-center mb-3">
-              Let's Get Started
+              Let&apos;s Get Started
             </h1>
             <h2 className="fs-6 text-secondary text-center mb-4">
               Create new account to access all features
@@ -225,7 +225,8 @@ export default function Register() {
                     className="spinner-border spinner-border-sm"
                     role="status"
                     aria-hidden="true"
-                  ></span>{" "}
+                  />
+                  {' '}
                   Loading...
                 </button>
               ) : (
@@ -239,7 +240,8 @@ export default function Register() {
             </form>
             {/* end form */}
             <p className="text-center text-secondary mt-4 ff-airbnb">
-              Already have account?{" "}
+              Already have account?
+              {' '}
               <Link className="color-primary text-decoration-none" to="/auth">
                 Log in Here
               </Link>

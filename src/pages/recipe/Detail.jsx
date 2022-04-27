@@ -1,13 +1,13 @@
-import "../../assets/styles/detail.css";
-import React, { useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getDetailRecipe } from "../../redux/actions/recipe";
-import Navbar from "../../components/organisms/Navbar";
-import DetailRecipe from "../../components/organisms/DetailRecipe";
-import DetailComment from "../../components/organisms/DetailComment";
-import Footer from "../../components/organisms/Footer";
-import { getRecipeComments } from "../../redux/actions/comment";
+import '../../assets/styles/detail.css';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDetailRecipe } from '../../redux/actions/recipe';
+import Navbar from '../../components/organisms/Navbar';
+import DetailRecipe from '../../components/organisms/DetailRecipe';
+import DetailComment from '../../components/organisms/DetailComment';
+import Footer from '../../components/organisms/Footer';
+import { getRecipeComments } from '../../redux/actions/comment';
 
 export default function Detail() {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ export default function Detail() {
           <div className="mt-12 mb-10 d-flex justify-content-center">
             <div
               className="spinner-border mt-3"
-              style={{ width: "3rem", height: "3rem" }}
+              style={{ width: '3rem', height: '3rem' }}
               role="status"
             >
               <span className="visually-hidden">Loading...</span>
@@ -56,7 +56,7 @@ export default function Detail() {
                   <div className="mt-12 mb-10 d-flex justify-content-center">
                     <div
                       className="spinner-border mt-3"
-                      style={{ width: "3rem", height: "3rem" }}
+                      style={{ width: '3rem', height: '3rem' }}
                       role="status"
                     >
                       <span className="visually-hidden">Loading...</span>

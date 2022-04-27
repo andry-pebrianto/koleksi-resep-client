@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getLatestRecipe } from "../../../redux/actions/recipe";
-import RecipeItem from "../../molecules/RecipeItem";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLatestRecipe } from '../../../redux/actions/recipe';
+import RecipeItem from '../../molecules/RecipeItem';
 
-const LandingLatest = () => {
+function LandingLatest() {
   const dispatch = useDispatch();
   const { latestRecipe } = useSelector((state) => state);
 
@@ -21,7 +21,7 @@ const LandingLatest = () => {
           <div className="d-flex justify-content-center">
             <div
               className="spinner-border"
-              style={{ width: "3rem", height: "3rem" }}
+              style={{ width: '3rem', height: '3rem' }}
               role="status"
             >
               <span className="visually-hidden">Loading...</span>
@@ -49,6 +49,6 @@ const LandingLatest = () => {
       </div>
     </section>
   );
-};
+}
 
 export default LandingLatest;

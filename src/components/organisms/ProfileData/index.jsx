@@ -1,7 +1,7 @@
-import React from "react";
-import EditIcon from "../../../assets/icons/edit.svg";
+import React from 'react';
+import EditIcon from '../../../assets/icons/edit.svg';
 
-const ProfileData = ({ profile }) => {
+function ProfileData({ profile }) {
   return (
     <section className="profile ff-airbnb text-center mb-5">
       <div className="d-flex justify-content-center">
@@ -19,6 +19,6 @@ const ProfileData = ({ profile }) => {
       <p className="fs-5 mt-3">{profile.name}</p>
     </section>
   );
-};
+}
 
 export default ProfileData;

@@ -1,11 +1,11 @@
-import "../../assets/styles/add.css";
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { putRecipe } from "../../redux/actions/recipe";
-import { createToast } from "../../utils/createToast";
-import Navbar from "../../components/organisms/Navbar";
-import Footer from "../../components/organisms/Footer";
-import axios from "axios";
+import '../../assets/styles/add.css';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { putRecipe } from '../../redux/actions/recipe';
+import { createToast } from '../../utils/createToast';
+import Navbar from '../../components/organisms/Navbar';
+import Footer from '../../components/organisms/Footer';
 
 export default function Edit() {
   const navigate = useNavigate();
@@ -17,8 +17,8 @@ export default function Edit() {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    title: "",
-    ingredients: "",
+    title: '',
+    ingredients: '',
   });
   const [photo, setPhoto] = useState(null);
   const [video, setVideo] = useState(null);
@@ -38,14 +38,14 @@ export default function Edit() {
           `${process.env.REACT_APP_API_URL}/recipe/${urlParams.id}`,
           {
             headers: {
-              token: localStorage.getItem("token"),
+              token: localStorage.getItem('token'),
             },
-          }
+          },
         );
 
         // jika recipe yang akan diedit bukan milik user
-        if (res.data.data.user_id !== localStorage.getItem("id")) {
-          return navigate("/myprofile");
+        if (res.data.data.user_id !== localStorage.getItem('id')) {
+          return navigate('/myprofile');
         }
 
         setForm({
@@ -53,11 +53,13 @@ export default function Edit() {
           ingredients: res.data.data.ingredients,
         });
         setIsApiLoading(false);
+
+        return 0;
       } catch (error) {
         if (error.response) {
-          if (parseInt(error.response.data.code) === 401) {
+          if (parseInt(error.response.data.code, 10) === 401) {
             localStorage.clear();
-            return navigate("/auth");
+            return navigate('/auth');
           }
 
           error.message = error.response.data.error;
@@ -65,6 +67,8 @@ export default function Edit() {
 
         setIsApiError(error.message);
         setIsApiLoading(false);
+
+        return 0;
       }
     }
 
@@ -75,18 +79,18 @@ export default function Edit() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("title", form.title);
-    formData.append("ingredients", form.ingredients);
+    formData.append('title', form.title);
+    formData.append('ingredients', form.ingredients);
 
     if (photo) {
-      formData.append("photo", photo);
+      formData.append('photo', photo);
     }
     if (video) {
-      formData.append("video", video);
+      formData.append('video', video);
     }
 
     if (!form.title || !form.ingredients) {
-      setErrors([{ msg: "All field required (*) must be filled" }]);
+      setErrors([{ msg: 'All field required (*) must be filled' }]);
     } else {
       setErrors([]);
       setIsLoading(true);
@@ -94,11 +98,11 @@ export default function Edit() {
       const addRecipeStatus = await putRecipe(
         urlParams.id,
         formData,
-        setErrors
+        setErrors,
       );
       if (addRecipeStatus) {
-        createToast(`Edit Recipe Success`);
-        navigate("/myprofile");
+        createToast('Edit Recipe Success');
+        navigate('/myprofile');
       }
 
       setIsLoading(false);
@@ -132,7 +136,7 @@ export default function Edit() {
           <div className="mt-12 mb-10 d-flex justify-content-center">
             <div
               className="spinner-border mt-3"
-              style={{ width: "3rem", height: "3rem" }}
+              style={{ width: '3rem', height: '3rem' }}
               role="status"
             >
               <span className="visually-hidden">Loading...</span>
@@ -193,7 +197,7 @@ export default function Edit() {
                         onChange={inputChangeHandler}
                         required
                         defaultValue={form.ingredients}
-                      ></textarea>
+                      />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="photo" className="form-label me-2">
@@ -230,7 +234,8 @@ export default function Edit() {
                             className="spinner-border spinner-border-sm"
                             role="status"
                             aria-hidden="true"
-                          ></span>{" "}
+                          />
+                          {' '}
                           Loading...
                         </button>
                       ) : (
