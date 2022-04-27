@@ -7,6 +7,7 @@ import { getListRecipe } from "../../redux/actions/recipe";
 import Navbar from "../../components/organisms/Navbar";
 import RecipeItem from "../../components/molecules/RecipeItem";
 import Footer from "../../components/organisms/Footer";
+import Pagination from "../../components/molecules/Pagination";
 
 export default function List() {
   const dispatch = useDispatch();
@@ -17,7 +18,6 @@ export default function List() {
   const [searchQuery, setSearchQuery] = useState("");
   const [limitQuery, setLimitQuery] = useState("");
   const [sortQuery, setSortQuery] = useState("");
-  const [pageQuery, setPageQuery] = useState("");
 
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - List Recipe`;
@@ -33,21 +33,19 @@ export default function List() {
       url += `&search=${queryParams.get("search")}`;
     }
 
-    // setLimitQuery("");
+    setLimitQuery("");
     if (queryParams.get("limit")) {
       setLimitQuery(queryParams.get("limit"));
       url += `&limit=${queryParams.get("limit")}`;
     }
 
-    // setSortQuery("");
+    setSortQuery("");
     if (queryParams.get("sort")) {
       setSortQuery(queryParams.get("sort"));
       url += `&sort=${queryParams.get("sort")}`;
     }
 
-    // setPageQuery("");
     if (queryParams.get("page")) {
-      setPageQuery(queryParams.get("page"));
       url += `&page=${queryParams.get("page")}`;
     }
 
@@ -57,6 +55,10 @@ export default function List() {
   const search = (e) => {
     e.preventDefault();
 
+    applyFilter();
+  };
+
+  const applyFilter = (page = "") => {
     let url = "/recipe?";
     if (searchQuery) {
       url += `&search=${searchQuery}`;
@@ -67,14 +69,12 @@ export default function List() {
     if (sortQuery) {
       url += `&sort=${sortQuery}`;
     }
-    if (pageQuery) {
-      url += `&page=${pageQuery}`;
+    if (page) {
+      url += `&page=${page}`;
     }
 
     return navigate(url);
   };
-
-  console.log(sortQuery);
 
   return (
     <>
@@ -147,11 +147,17 @@ export default function List() {
               ) : (
                 <>
                   {listRecipe.data.length ? (
-                    <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-3">
-                      {listRecipe.data.map((recipe) => (
-                        <RecipeItem key={recipe.id} recipe={recipe} />
-                      ))}
-                    </div>
+                    <>
+                      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-3">
+                        {listRecipe.data.map((recipe) => (
+                          <RecipeItem key={recipe.id} recipe={recipe} />
+                        ))}
+                      </div>
+                      <Pagination
+                        pagination={listRecipe.pagination}
+                        applyFilter={applyFilter}
+                      />
+                    </>
                   ) : (
                     <h2 className="mt-3">Data tidak ditemukan</h2>
                   )}
