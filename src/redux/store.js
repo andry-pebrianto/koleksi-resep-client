@@ -11,14 +11,20 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
-
 const middleware = applyMiddleware(thunk);
-const store = createStore(
-  persistedReducer,
-  process.env.REACT_APP_NODE_ENV === 'production'
-    ? middleware
-    : composeWithDevTools(middleware),
-);
+// eslint-disable-next-line import/no-mutable-exports
+let store = null;
+
+if (process.env.REACT_APP_NODE_ENV === 'production') {
+  store = createStore(persistedReducer, middleware);
+} else {
+  store = createStore(
+    persistedReducer,
+    process.env.REACT_APP_NODE_ENV === 'production'
+      ? middleware
+      : composeWithDevTools(middleware),
+  );
+}
 const persistor = persistStore(store);
 
 export { store, persistor };
