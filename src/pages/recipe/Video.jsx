@@ -68,7 +68,7 @@ export default function Video() {
                           {detailRecipe.data.title}
                         </p>
                         <p className="text-secondary">
-                          {moment(detailRecipe.data.date, 'YYYYMMDD').fromNow()}
+                          {moment(detailRecipe.data.date).fromNow()}
                         </p>
                       </>
                     )}

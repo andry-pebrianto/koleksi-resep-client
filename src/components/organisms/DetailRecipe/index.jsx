@@ -39,7 +39,7 @@ function DetailRecipe({ recipe }) {
             {' '}
             <span title={recipe.date}>
               - (
-              {moment(recipe.date, 'YYYYMMDD').fromNow()}
+              {moment(recipe.date).fromNow()}
               )
             </span>
           </p>
