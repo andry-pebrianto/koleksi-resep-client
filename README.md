@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+<div align="center">
+  <img src="./readme/logo.png" width="200px" height="200px" />
+</div>
+<h3 align="center">Koleksi Resep</h3>
+<p align="center">
+  <a href="https://koleksi-resep.netlify.app/">View Demo</a>
+  ·
+  <a href="https://github.com/andry-pebrianto/koleksi-resep-client/issues">Report Bug</a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-## Available Scripts
+Koleksi Resep is a web application for sharing recipes with features to register, login, forgot password, edit profile, create recipes, edit recipes, delete recipes, comments, and also features to upload recipe videos. This web application is built using ReactJS, ExpressJS, and PostgreSQL.
 
-In the project directory, you can run:
+### Technology Used
+- [ReactJS](https://reactjs.org/)
+- [Redux](https://redux.js.org/)
+- [Bootstrap](https://getbootstrap.com/)
+- [Axios](https://github.com/axios/axios)
+- [Moment](https://momentjs.com/)
 
-### `npm start`
+<!-- GETTING STARTED -->
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Installation
+- Clone This Repository
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+`https://github.com/andry-pebrianto/koleksi-resep-client.git`
 
-### `npm test`
+- Install Module
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`npm install`
 
-### `npm run build`
+- Setting .env
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+REACT_APP_APP_NAME=YOUR_APP_NAME
+REACT_APP_NODE_ENV=YOUR_CURRENT_ENVIRONMENT
+REACT_APP_API_URL=YOUR_API_URL
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Executing program
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Run this project with `npm run start`.
 
-### `npm run eject`
+<!-- SCREENSHOT -->
+## Screenshot
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Login
+<img src="./readme/ss-login.webp" />
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Register
+<img src="./readme/ss-register.webp" />
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Landing
+<img src="./readme/ss-landing.webp" />
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### List Recipe
+<img src="./readme/ss-list.webp" />
 
-## Learn More
+### Detail Recipe
+<img src="./readme/ss-detail.webp" />
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Video Step
+<img src="./readme/ss-video.webp" />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Add Recipe
+<img src="./readme/ss-add.webp" />
 
-### Code Splitting
+### Edit Recipe
+<img src="./readme/ss-edit.webp" />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Profile
+<img src="./readme/ss-profile.webp" />
 
-### Analyzing the Bundle Size
+<!-- RELATED PROJECT -->
+## Related Project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- [Koleksi Resep API](https://github.com/andry-pebrianto/koleksi-resep-api)
+- [Koleksi Resep Demo](https://koleksi-resep.netlify.app/)
 
-### Making a Progressive Web App
+<!-- CONTACT INFO -->
+## Contact Info
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Contributors names and contact info:
 
-### Advanced Configuration
+1. Andry Pebrianto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- [Linkedin](https://www.linkedin.com/in/andry-pebrianto)
 
-### Deployment
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License - see the LICENSE file for details
