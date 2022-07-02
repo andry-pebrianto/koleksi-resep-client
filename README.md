@@ -48,31 +48,31 @@ REACT_APP_API_URL=YOUR_API_URL
 ## Screenshot
 
 ### Login
-<img src="./readme/ss-login.webp" />
+<img src="./readme/ss-login.jpg" />
 
 ### Register
-<img src="./readme/ss-register.webp" />
+<img src="./readme/ss-register.jpg" />
 
 ### Landing
-<img src="./readme/ss-landing.webp" />
+<img src="./readme/ss-landing.jpg" />
 
 ### List Recipe
-<img src="./readme/ss-list.webp" />
+<img src="./readme/ss-list.jpg" />
 
 ### Detail Recipe
-<img src="./readme/ss-detail.webp" />
+<img src="./readme/ss-detail.jpg" />
 
 ### Video Step
-<img src="./readme/ss-video.webp" />
+<img src="./readme/ss-video.jpg" />
 
 ### Add Recipe
-<img src="./readme/ss-add.webp" />
+<img src="./readme/ss-add.jpg" />
 
 ### Edit Recipe
-<img src="./readme/ss-edit.webp" />
+<img src="./readme/ss-edit.jpg" />
 
 ### Profile
-<img src="./readme/ss-profile.webp" />
+<img src="./readme/ss-profile.jpg" />
 
 <!-- RELATED PROJECT -->
 ## Related Project
