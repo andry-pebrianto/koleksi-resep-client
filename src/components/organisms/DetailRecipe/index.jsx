@@ -14,6 +14,7 @@ function DetailRecipe({ recipe }) {
             className="mt-4"
             src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
             alt={recipe.title}
+            onError={(e) => { e.target.src = `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`; }}
           />
         )}
         <div className="icon">

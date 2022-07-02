@@ -16,6 +16,7 @@ function RecipeItem({ recipe }) {
             src={`${process.env.REACT_APP_API_URL}/photo/${photo}`}
             className="card-img-top"
             alt={title}
+            onError={(e) => { e.target.src = `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`; }}
           />
         </div>
       </Link>
