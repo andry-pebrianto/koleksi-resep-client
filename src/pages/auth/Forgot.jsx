@@ -1,37 +1,35 @@
 import '../../assets/styles/auth.css';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../redux/actions/auth';
+import { forgot } from '../../redux/actions/auth';
 import SideAuth from '../../components/molecules/SideAuth';
 import Logo from '../../components/atoms/Logo';
 import { createToast } from '../../utils/createToast';
-import PasswordInput from '../../components/atoms/PasswordInput';
 
-export default function Login() {
+export default function Forgot() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     email: '',
-    password: '',
   });
 
   useEffect(() => {
-    document.title = `${process.env.REACT_APP_APP_NAME} - Login`;
+    document.title = `${process.env.REACT_APP_APP_NAME} - Forgot Password`;
   }, []);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (!form.email || !form.password) {
+    if (!form.email) {
       setErrors([{ msg: 'All field required (*) must be filled' }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
-      const loginStatus = await login(form, setErrors);
-      if (loginStatus) {
-        createToast('Login Success', 'success');
+      const forgotStatus = await forgot(form, setErrors);
+      if (forgotStatus) {
+        createToast('Check Your Email For Next Step', 'success');
         navigate('/');
       }
 
@@ -58,10 +56,10 @@ export default function Login() {
               </Link>
             </div>
             <h1 className="fs-4 fw-bold color-primary text-center mb-3">
-              Welcome
+              Forgot Your Password?
             </h1>
             <h2 className="fs-6 text-secondary text-center mb-4">
-              Log in into your existing account
+            Enter your email address below and we'll send you a link to reset your password
             </h2>
             {/* form */}
             <form onSubmit={submitHandler}>
@@ -85,12 +83,6 @@ export default function Login() {
                   value={form.email}
                 />
               </div>
-              <PasswordInput
-                password={form.password}
-                setPassword={inputChangeHandler}
-                id="password"
-                placeholder="Password"
-              />
               {errors.length > 0 && (
                 <div className="alert alert-danger mx-0 py-2">
                   <ul className="m-0">
@@ -119,27 +111,18 @@ export default function Login() {
                   type="submit"
                   className="btn back-primary w-100 text-light mb-2"
                 >
-                  Log in
+                  Forgot
                 </button>
               )}
             </form>
-            {/* end form */}
-            <div className="d-flex justify-content-end ff-airbnb">
-              <Link
-                className="link-secondary text-decoration-none"
-                to="/auth/forgot"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-            <p className="text-center text-secondary mt-4 ff-airbnb">
-              Don&apos;t have an account?
+            <p className="text-center text-secondary mt-3 ff-airbnb">
+              Already remember?
               {' '}
               <Link
                 className="color-primary text-decoration-none"
-                to="/auth/register"
+                to="/auth"
               >
-                Sign Up
+                Log In
               </Link>
             </p>
             <br />

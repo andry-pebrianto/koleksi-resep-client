@@ -6,6 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import Landing from '../pages/Landing';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
+import Forgot from '../pages/auth/Forgot';
 import ListRecipe from '../pages/recipe/List';
 import DetailRecipe from '../pages/recipe/Detail';
 import AddRecipe from '../pages/recipe/Add';
@@ -54,6 +55,14 @@ export default function router() {
             element={(
               <PublicRoute>
                 <Register />
+              </PublicRoute>
+            )}
+          />
+          <Route
+            path="/auth/forgot"
+            element={(
+              <PublicRoute>
+                <Forgot />
               </PublicRoute>
             )}
           />
