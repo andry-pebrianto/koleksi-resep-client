@@ -67,3 +67,23 @@ export const forgot = async (data, setErrors) => {
     return false;
   }
 };
+
+export const reset = async (token, data, setErrors) => {
+  try {
+    await axios.put(`${process.env.REACT_APP_API_URL}/auth/reset/${token}`, data);
+
+    return true;
+  } catch (error) {
+    if (error.response) {
+      if (Array.isArray(error.response.data.error)) {
+        setErrors(error.response.data.error);
+      } else {
+        setErrors([{ msg: error.response.data.error }]);
+      }
+    } else {
+      setErrors([{ msg: error.message }]);
+    }
+
+    return false;
+  }
+};

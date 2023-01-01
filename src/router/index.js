@@ -7,6 +7,7 @@ import Landing from '../pages/Landing';
 import Login from '../pages/auth/Login';
 import Register from '../pages/auth/Register';
 import Forgot from '../pages/auth/Forgot';
+import Reset from '../pages/auth/Reset';
 import ListRecipe from '../pages/recipe/List';
 import DetailRecipe from '../pages/recipe/Detail';
 import AddRecipe from '../pages/recipe/Add';
@@ -63,6 +64,14 @@ export default function router() {
             element={(
               <PublicRoute>
                 <Forgot />
+              </PublicRoute>
+            )}
+          />
+          <Route
+            path="/auth/reset/:token"
+            element={(
+              <PublicRoute>
+                <Reset />
               </PublicRoute>
             )}
           />
