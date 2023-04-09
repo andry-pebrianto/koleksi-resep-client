@@ -12,7 +12,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);
 const middleware = applyMiddleware(thunk);
-// eslint-disable-next-line import/no-mutable-exports
+
 let store = null;
 
 if (process.env.REACT_APP_NODE_ENV === 'production') {
