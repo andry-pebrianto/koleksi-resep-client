@@ -1,14 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const login = async (data, setErrors) => {
   try {
     const res = await axios.post(
       `${process.env.REACT_APP_API_URL}/auth/login`,
-      data,
+      data
     );
 
-    localStorage.setItem('token', res.data.token.jwt);
-    localStorage.setItem('id', res.data.token.id);
+    localStorage.setItem("token", res.data.token.jwt);
+    localStorage.setItem("id", res.data.token.id);
 
     return true;
   } catch (error) {
@@ -28,8 +28,10 @@ export const login = async (data, setErrors) => {
 
 export const register = async (data, setErrors) => {
   try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+    await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
+      fullName: data.name,
+      email: data.email,
+      password: data.password,
     });
 
     return true;
@@ -70,7 +72,10 @@ export const forgot = async (data, setErrors) => {
 
 export const reset = async (token, data, setErrors) => {
   try {
-    await axios.put(`${process.env.REACT_APP_API_URL}/auth/reset/${token}`, data);
+    await axios.put(
+      `${process.env.REACT_APP_API_URL}/auth/reset/${token}`,
+      data
+    );
 
     return true;
   } catch (error) {

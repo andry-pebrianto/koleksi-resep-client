@@ -1,24 +1,23 @@
-import '../../assets/styles/auth.css';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { register } from '../../redux/actions/auth';
-import SideAuth from '../../components/molecules/SideAuth';
-import Logo from '../../components/atoms/Logo';
-import { createToast } from '../../utils/createToast';
-import PasswordInput from '../../components/atoms/PasswordInput';
+import "../../assets/styles/auth.css";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { register } from "../../redux/actions/auth";
+import SideAuth from "../../components/molecules/SideAuth";
+import Logo from "../../components/atoms/Logo";
+import { createToast } from "../../utils/createToast";
+import PasswordInput from "../../components/atoms/PasswordInput";
 
 export default function Register() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    passwordConfirm: '',
+    name: "",
+    email: "",
+    password: "",
+    passwordConfirm: "",
   });
-  const [photo, setPhoto] = useState(null);
   const [terms, setTerms] = useState(false);
 
   useEffect(() => {
@@ -28,33 +27,23 @@ export default function Register() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('name', form.name);
-    formData.append('email', form.email);
-    formData.append('phone', form.phone);
-    formData.append('password', form.password);
-
-    if (photo) {
-      formData.append('photo', photo);
-    }
-
-    if (!form.name || !form.email || !form.phone || !form.password) {
-      setErrors([{ msg: 'All field required (*) must be filled' }]);
+    if (!form.name || !form.email || !form.password) {
+      setErrors([{ msg: "All field required (*) must be filled" }]);
     } else if (form.password !== form.passwordConfirm) {
-      setErrors([{ msg: 'Password and Password Confirm must be same' }]);
+      setErrors([{ msg: "Password and Password Confirm must be same" }]);
     } else if (!terms) {
-      setErrors([{ msg: 'You must agree terms and conditions to register' }]);
+      setErrors([{ msg: "You must agree terms and conditions to register" }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
-      const registerStatus = await register(formData, setErrors);
+      const registerStatus = await register(form, setErrors);
       if (registerStatus) {
         createToast(
-          'Register Success, Please Activate Your Account Through Link From Email',
-          'success',
+          "Register Success, Please Activate Your Account Through Link From Email",
+          "success"
         );
-        navigate('/auth');
+        navigate("/auth");
       }
 
       setIsLoading(false);
@@ -68,8 +57,11 @@ export default function Register() {
     });
   };
 
-  const photoChangeHandler = (e) => {
-    setPhoto(e.target.files[0]);
+  const loginGoogleSuccess = (response) => {
+    console.log(response);
+  };
+  const loginGoogleFailure = (error) => {
+    console.log(error);
   };
 
   return (
@@ -131,38 +123,6 @@ export default function Register() {
                   value={form.email}
                 />
               </div>
-              <div className="mb-3">
-                <label
-                  htmlFor="phone"
-                  className="form-label"
-                  data-bs-toggle="tooltip"
-                  data-bs-placement="top"
-                  title="Required"
-                >
-                  * Phone Number
-                </label>
-                <input
-                  type="number"
-                  className="form-control form-control-sm p-3"
-                  id="phone"
-                  onChange={inputChangeHandler}
-                  required
-                  placeholder="08XXXXXXXXXX"
-                  value={form.phone}
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="photo" className="form-label">
-                  Photo
-                </label>
-                <input
-                  type="file"
-                  className="form-control form-control-sm p-3"
-                  id="photo"
-                  onChange={photoChangeHandler}
-                  placeholder="Photo"
-                />
-              </div>
               <PasswordInput
                 password={form.password}
                 setPassword={inputChangeHandler}
@@ -205,8 +165,7 @@ export default function Register() {
                     className="spinner-border spinner-border-sm"
                     role="status"
                     aria-hidden="true"
-                  />
-                  {' '}
+                  />{" "}
                   Loading...
                 </button>
               ) : (
@@ -220,12 +179,17 @@ export default function Register() {
             </form>
             {/* end form */}
             <p className="text-center text-secondary mt-4 ff-airbnb">
-              Already have account?
-              {' '}
+              Already have account?{" "}
               <Link className="color-primary text-decoration-none" to="/auth">
                 Log in Here
               </Link>
             </p>
+            <div className="mb-3 d-flex justify-content-center">
+              <GoogleLogin
+                onSuccess={loginGoogleSuccess}
+                onError={loginGoogleFailure}
+              />
+            </div>
             <br />
           </div>
         </div>
