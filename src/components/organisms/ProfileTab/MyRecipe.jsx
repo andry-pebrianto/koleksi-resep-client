@@ -1,32 +1,32 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
-import { useDispatch } from 'react-redux';
-import Swal from 'sweetalert2';
-import { deleteRecipe, getUserRecipes } from '../../../redux/actions/recipe';
-import { createToast } from '../../../utils/createToast';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import Swal from "sweetalert2";
+import { deleteRecipe, getUserRecipes } from "../../../redux/actions/recipe";
+import { createToast } from "../../../utils/createToast";
 
 function MyRecipe({ my, profile, recipes }) {
   const dispatch = useDispatch();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const removeRecipe = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
-      text: 'This recipe will be deleted!',
-      icon: 'warning',
+      title: "Are you sure?",
+      text: "This recipe will be deleted!",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, Delete!',
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Delete!",
     }).then(async (result) => {
       if (result.isConfirmed) {
         const deleteStatus = await deleteRecipe(id, setError);
         if (deleteStatus) {
-          createToast('Delete Recipe Success', 'success');
+          createToast("Delete Recipe Success", "success");
           dispatch(getUserRecipes(profile.id));
         } else {
-          createToast(error, 'error');
+          createToast(error, "error");
         }
       }
     });
@@ -42,9 +42,11 @@ function MyRecipe({ my, profile, recipes }) {
                 <div className="card-body p-0">
                   <Link to={`/recipe/${recipe.id}`}>
                     <img
-                      src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
+                      src={
+                        recipe.photo_url ||
+                        `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`
+                      }
                       alt={recipe.title}
-                      onError={(e) => { e.target.src = `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`; }}
                     />
                     <p className="title text-dark back-primary p-1 rounded">
                       {recipe.title}

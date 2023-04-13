@@ -85,11 +85,13 @@ export default function Upload({
           </div>
         )}
       </Dropzone>
-      {file.name && file.size && (
-        <p>
-          {file.name} - {file.size}
-        </p>
-      )}
+      <p>
+        {file.name && file.size && (
+          <>
+            {file.name} - {file.size}
+          </>
+        )}
+      </p>
       {type === "photo" ? (
         <>{fileUpload && <ImagePreview imageUrl={fileUpload} />}</>
       ) : (

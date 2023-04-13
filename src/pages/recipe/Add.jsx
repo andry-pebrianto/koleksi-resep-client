@@ -131,7 +131,7 @@ export default function Add() {
               >
                 * Tags
               </label>
-              <SelectTag tags={listTag.data} setTags={setTags} />
+              <SelectTag tagsApi={listTag.data} tags={tags} setTags={setTags} />
             </div>
             <div className="mb-3">
               <label htmlFor="photo" className="form-label me-2">

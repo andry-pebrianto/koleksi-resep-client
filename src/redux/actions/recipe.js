@@ -151,10 +151,10 @@ export const getUserRecipes = (id, navigate) => async (dispatch) => {
 
 export const deleteRecipe = async (id, setError) => {
   try {
-    const token = localStorage.getItem("token");
+    const accessToken = localStorage.getItem("accessToken");
 
     await axios.delete(`${process.env.REACT_APP_API_URL}/recipe/${id}`, {
-      headers: { token },
+      headers: { token: accessToken },
     });
 
     return true;
@@ -195,10 +195,10 @@ export const postRecipe = async (data, setErrors) => {
 
 export const putRecipe = async (id, data, setErrors) => {
   try {
-    const token = localStorage.getItem("token");
+    const accessToken = localStorage.getItem("accessToken");
 
     await axios.put(`${process.env.REACT_APP_API_URL}/recipe/${id}`, data, {
-      headers: { "Content-Type": "multipart/form-data", token },
+      headers: { token: accessToken },
     });
 
     return true;

@@ -1,5 +1,4 @@
 import React from "react";
-import EditIcon from "../../../assets/icons/edit.svg";
 
 function ProfileData({ profile }) {
   return (
@@ -16,10 +15,17 @@ function ProfileData({ profile }) {
               alt="Profile"
             />
           )}
-          <img className="icon" src={EditIcon} alt="Edit Icon" />
         </div>
       </div>
       <p className="fs-5 mt-3">{profile.full_name}</p>
+      <a href="/" className="btn btn-outline-primary btn-sm mx-2">
+        Edit Profile
+      </a>
+      {!profile.google_id && (
+        <a href="/" className="btn btn-outline-primary btn-sm mx-2">
+          Edit Password
+        </a>
+      )}
     </section>
   );
 }

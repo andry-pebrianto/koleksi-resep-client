@@ -1,15 +1,23 @@
-import '../../assets/styles/add.css';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import { putRecipe } from '../../redux/actions/recipe';
-import { createToast } from '../../utils/createToast';
-import Navbar from '../../components/organisms/Navbar';
-import Footer from '../../components/organisms/Footer';
+import "../../assets/styles/add.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import he from "he";
+import { useDispatch, useSelector } from "react-redux";
+import { putRecipe } from "../../redux/actions/recipe";
+import { createToast } from "../../utils/createToast";
+import Navbar from "../../components/organisms/Navbar";
+import Footer from "../../components/organisms/Footer";
+import RichEditor from "../../components/molecules/RichEditor";
+import SelectTag from "../../components/molecules/SelectTag";
+import { getListTag } from "../../redux/actions/tag";
+import Upload from "../../components/molecules/Upload";
 
 export default function Edit() {
   const navigate = useNavigate();
   const urlParams = useParams();
+  const dispatch = useDispatch();
+  const { listTag } = useSelector((state) => state);
 
   const [isApiError, setIsApiError] = useState(null);
   const [isApiLoading, setIsApiLoading] = useState(false);
@@ -17,11 +25,12 @@ export default function Edit() {
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    title: '',
-    ingredients: '',
+    title: "",
   });
-  const [photo, setPhoto] = useState(null);
-  const [video, setVideo] = useState(null);
+  const [ingredients, setIngredients] = useState("");
+  const [tags, setTags] = useState([]);
+  const [photo, setPhoto] = useState("");
+  const [video, setVideo] = useState("");
 
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - Edit Recipe`;
@@ -38,20 +47,23 @@ export default function Edit() {
           `${process.env.REACT_APP_API_URL}/recipe/${urlParams.id}`,
           {
             headers: {
-              token: localStorage.getItem('token'),
+              token: localStorage.getItem("accessToken"),
             },
-          },
+          }
         );
 
         // jika recipe yang akan diedit bukan milik user
-        if (res.data.data.user_id !== localStorage.getItem('id')) {
-          return navigate('/myprofile');
+        if (res.data.data.user_id !== localStorage.getItem("id")) {
+          return navigate("/myprofile");
         }
 
         setForm({
           title: res.data.data.title,
-          ingredients: res.data.data.ingredients,
         });
+        setIngredients(res.data.data.ingredients);
+        setTags(res.data.data.tags);
+        setPhoto(res.data.data.photo_url);
+        setVideo(res.data.data.video_url);
         setIsApiLoading(false);
 
         return 0;
@@ -59,7 +71,7 @@ export default function Edit() {
         if (error.response) {
           if (parseInt(error.response.data.code, 10) === 401) {
             localStorage.clear();
-            return navigate('/auth');
+            return navigate("/auth");
           }
 
           error.message = error.response.data.error;
@@ -71,38 +83,34 @@ export default function Edit() {
         return 0;
       }
     }
-
     replaceEditData();
+
+    dispatch(getListTag(navigate));
   }, [navigate, urlParams.id]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('title', form.title);
-    formData.append('ingredients', form.ingredients);
-
-    if (photo) {
-      formData.append('photo', photo);
-    }
-    if (video) {
-      formData.append('video', video);
-    }
-
-    if (!form.title || !form.ingredients) {
-      setErrors([{ msg: 'All field required (*) must be filled' }]);
+    if (!form.title || !ingredients || !tags.length) {
+      setErrors([{ msg: "All field required (*) must be filled" }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
       const addRecipeStatus = await putRecipe(
         urlParams.id,
-        formData,
-        setErrors,
+        {
+          ...form,
+          ingredients,
+          photoUrl: photo,
+          videoUrl: video,
+          tags,
+        },
+        setErrors
       );
       if (addRecipeStatus) {
-        createToast('Edit Recipe Success');
-        navigate('/myprofile');
+        createToast("Edit Recipe Success");
+        navigate("/myprofile");
       }
 
       setIsLoading(false);
@@ -117,14 +125,6 @@ export default function Edit() {
     });
   };
 
-  const photoChangeHandler = (e) => {
-    setPhoto(e.target.files[0]);
-  };
-
-  const videoChangeHandler = (e) => {
-    setVideo(e.target.files[0]);
-  };
-
   return (
     <>
       {/* navbar */}
@@ -136,7 +136,7 @@ export default function Edit() {
           <div className="mt-12 mb-10 d-flex justify-content-center">
             <div
               className="spinner-border mt-3"
-              style={{ width: '3rem', height: '3rem' }}
+              style={{ width: "3rem", height: "3rem" }}
               role="status"
             >
               <span className="visually-hidden">Loading...</span>
@@ -189,38 +189,51 @@ export default function Edit() {
                       >
                         * Ingredients
                       </label>
-                      <textarea
-                        className="form-control"
-                        id="ingredients"
-                        rows="10"
-                        placeholder="Ingredients"
-                        onChange={inputChangeHandler}
-                        required
-                        defaultValue={form.ingredients}
+                      <RichEditor
+                        data={he.decode(ingredients)}
+                        setData={setIngredients}
+                      />
+                    </div>
+                    <div className="mb-3">
+                      <label
+                        htmlFor="tags"
+                        className="form-label me-2"
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        title="Required"
+                      >
+                        * Tags
+                      </label>
+                      <SelectTag
+                        tagsApi={listTag.data}
+                        tags={tags}
+                        setTags={setTags}
                       />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="photo" className="form-label me-2">
                         Photo
                       </label>
-                      <input
-                        type="file"
-                        className="form-control form-control-sm p-3"
-                        id="photo"
-                        placeholder="Photo"
-                        onChange={photoChangeHandler}
+                      <Upload
+                        setIsLoading={setIsLoading}
+                        fileUpload={photo}
+                        setFileUpload={setPhoto}
+                        type="photo"
+                        maxSize={2000000}
+                        disabled={isLoading}
                       />
                     </div>
                     <div className="mb-3">
                       <label htmlFor="video" className="form-label me-2">
                         Video
                       </label>
-                      <input
-                        type="file"
-                        className="form-control form-control-sm p-3"
-                        id="video"
-                        placeholder="Video"
-                        onChange={videoChangeHandler}
+                      <Upload
+                        setIsLoading={setIsLoading}
+                        fileUpload={video}
+                        setFileUpload={setVideo}
+                        type="video"
+                        maxSize={30000000}
+                        disabled={isLoading}
                       />
                     </div>
                     <div className="d-flex justify-content-center">
@@ -234,8 +247,7 @@ export default function Edit() {
                             className="spinner-border spinner-border-sm"
                             role="status"
                             aria-hidden="true"
-                          />
-                          {' '}
+                          />{" "}
                           Loading...
                         </button>
                       ) : (
