@@ -1,51 +1,62 @@
-import '../../assets/styles/add.css';
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createToast } from '../../utils/createToast';
-import { postRecipe } from '../../redux/actions/recipe';
-import Navbar from '../../components/organisms/Navbar';
-import Footer from '../../components/organisms/Footer';
+import "../../assets/styles/add.css";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { createToast } from "../../utils/createToast";
+import { postRecipe } from "../../redux/actions/recipe";
+import { getListTag } from "./../../redux/actions/tag";
+import Navbar from "../../components/organisms/Navbar";
+import Footer from "../../components/organisms/Footer";
+import Upload from "../../components/molecules/Upload";
+import RichEditor from "../../components/molecules/RichEditor";
+import SelectTag from "../../components/molecules/SelectTag";
 
 export default function Add() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { listTag } = useSelector((state) => state);
+
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    title: '',
-    ingredients: '',
+    title: "",
   });
-  const [photo, setPhoto] = useState(null);
-  const [video, setVideo] = useState(null);
+  const [ingredients, setIngredients] = useState("");
+  const [tags, setTags] = useState([]);
+  const [photo, setPhoto] = useState("");
+  const [video, setVideo] = useState("");
 
   useEffect(() => {
     document.title = `${process.env.REACT_APP_APP_NAME} - Add Recipe`;
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    dispatch(getListTag(navigate));
+  }, [dispatch, navigate]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-    formData.append('title', form.title);
-    formData.append('ingredients', form.ingredients);
-
-    if (photo) {
-      formData.append('photo', photo);
-    }
-    if (video) {
-      formData.append('video', video);
-    }
-
-    if (!form.title || !form.ingredients) {
-      setErrors([{ msg: 'All field required (*) must be filled' }]);
+    if (!form.title || !ingredients || !tags.length) {
+      setErrors([{ msg: "All field required (*) must be filled" }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
-      const addRecipeStatus = await postRecipe(formData, setErrors);
+      const addRecipeStatus = await postRecipe(
+        {
+          ...form,
+          ingredients,
+          photoUrl: photo,
+          videoUrl: video,
+          tags,
+        },
+        setErrors
+      );
       if (addRecipeStatus) {
-        createToast('Add Recipe Success');
-        navigate('/myprofile');
+        createToast("Add Recipe Success");
+        navigate("/myprofile");
       }
 
       setIsLoading(false);
@@ -58,14 +69,6 @@ export default function Add() {
       ...form,
       [e.target.id]: e.target.value,
     });
-  };
-
-  const photoChangeHandler = (e) => {
-    setPhoto(e.target.files[0]);
-  };
-
-  const videoChangeHandler = (e) => {
-    setVideo(e.target.files[0]);
   };
 
   return (
@@ -116,41 +119,47 @@ export default function Add() {
               >
                 * Ingredients
               </label>
-              <textarea
-                className="form-control"
-                id="ingredients"
-                rows="10"
-                placeholder="Ingredients"
-                onChange={inputChangeHandler}
-                required
-                defaultValue={form.ingredients}
-              />
+              <RichEditor data={ingredients} setData={setIngredients} />
+            </div>
+            <div className="mb-3">
+              <label
+                htmlFor="tags"
+                className="form-label me-2"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Required"
+              >
+                * Tags
+              </label>
+              <SelectTag tags={listTag.data} setTags={setTags} />
             </div>
             <div className="mb-3">
               <label htmlFor="photo" className="form-label me-2">
                 Photo
               </label>
-              <input
-                type="file"
-                className="form-control form-control-sm p-3"
-                id="photo"
-                placeholder="Photo"
-                onChange={photoChangeHandler}
+              <Upload
+                setIsLoading={setIsLoading}
+                fileUpload={photo}
+                setFileUpload={setPhoto}
+                type="photo"
+                maxSize={2000000}
+                disabled={isLoading}
               />
             </div>
             <div className="mb-3">
               <label htmlFor="video" className="form-label me-2">
                 Video
               </label>
-              <input
-                type="file"
-                className="form-control form-control-sm p-3"
-                id="video"
-                placeholder="Video"
-                onChange={videoChangeHandler}
+              <Upload
+                setIsLoading={setIsLoading}
+                fileUpload={video}
+                setFileUpload={setVideo}
+                type="video"
+                maxSize={30000000}
+                disabled={isLoading}
               />
             </div>
-            <div className="d-flex justify-content-center">
+            <div className="d-flex justify-content-center mt-4">
               {isLoading ? (
                 <button
                   className="btn back-primary w-100 text-light mb-2"
@@ -161,8 +170,7 @@ export default function Add() {
                     className="spinner-border spinner-border-sm"
                     role="status"
                     aria-hidden="true"
-                  />
-                  {' '}
+                  />{" "}
                   Loading...
                 </button>
               ) : (

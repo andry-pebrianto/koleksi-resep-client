@@ -1,34 +1,32 @@
-import React from 'react';
-import {
-  BrowserRouter, Routes, Route, Navigate,
-} from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import Landing from '../pages/Landing';
-import Login from '../pages/auth/Login';
-import Register from '../pages/auth/Register';
-import Forgot from '../pages/auth/Forgot';
-import Reset from '../pages/auth/Reset';
-import ListRecipe from '../pages/recipe/List';
-import DetailRecipe from '../pages/recipe/Detail';
-import AddRecipe from '../pages/recipe/Add';
-import EditRecipe from '../pages/recipe/Edit';
-import VideoRecipe from '../pages/recipe/Video';
-import Profile from '../pages/user/Profile';
-import NotFound from '../pages/NotFound';
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import Landing from "../pages/Landing";
+import Login from "../pages/auth/Login";
+import Register from "../pages/auth/Register";
+import Forgot from "../pages/auth/Forgot";
+import Reset from "../pages/auth/Reset";
+import ListRecipe from "../pages/recipe/List";
+import DetailRecipe from "../pages/recipe/Detail";
+import AddRecipe from "../pages/recipe/Add";
+import EditRecipe from "../pages/recipe/Edit";
+import VideoRecipe from "../pages/recipe/Video";
+import Profile from "../pages/user/Profile";
+import NotFound from "../pages/NotFound";
 
 function PrivateRoute({ children }) {
-  const token = localStorage.getItem('token');
+  const accessToken = localStorage.getItem("accessToken");
 
-  if (token) {
+  if (accessToken) {
     return children;
   }
   return <Navigate to="/auth" />;
 }
 
-function PublicRoute({ children }) {
-  const token = localStorage.getItem('token');
+function AuthRoute({ children }) {
+  const accessToken = localStorage.getItem("accessToken");
 
-  if (!token) {
+  if (!accessToken) {
     return children;
   }
   return <Navigate to="/" />;
@@ -45,94 +43,94 @@ export default function router() {
         <Route path="/auth">
           <Route
             index
-            element={(
-              <PublicRoute>
+            element={
+              <AuthRoute>
                 <Login />
-              </PublicRoute>
-            )}
+              </AuthRoute>
+            }
           />
           <Route
             path="/auth/register"
-            element={(
-              <PublicRoute>
+            element={
+              <AuthRoute>
                 <Register />
-              </PublicRoute>
-            )}
+              </AuthRoute>
+            }
           />
           <Route
             path="/auth/forgot"
-            element={(
-              <PublicRoute>
+            element={
+              <AuthRoute>
                 <Forgot />
-              </PublicRoute>
-            )}
+              </AuthRoute>
+            }
           />
           <Route
             path="/auth/reset/:token"
-            element={(
-              <PublicRoute>
+            element={
+              <AuthRoute>
                 <Reset />
-              </PublicRoute>
-            )}
+              </AuthRoute>
+            }
           />
         </Route>
         <Route path="/recipe">
           <Route
             index
-            element={(
+            element={
               <PrivateRoute>
                 <ListRecipe />
               </PrivateRoute>
-            )}
+            }
           />
           <Route
             path="/recipe/:id"
-            element={(
+            element={
               <PrivateRoute>
                 <DetailRecipe />
               </PrivateRoute>
-            )}
+            }
           />
           <Route
             path="/recipe/add"
-            element={(
+            element={
               <PrivateRoute>
                 <AddRecipe />
               </PrivateRoute>
-            )}
+            }
           />
           <Route
             path="/recipe/:id/edit"
-            element={(
+            element={
               <PrivateRoute>
                 <EditRecipe />
               </PrivateRoute>
-            )}
+            }
           />
           <Route
             path="/recipe/:id/video"
-            element={(
+            element={
               <PrivateRoute>
                 <VideoRecipe />
               </PrivateRoute>
-            )}
+            }
           />
         </Route>
         <Route
           path="/myprofile"
-          element={(
+          element={
             <PrivateRoute>
               <Profile my />
             </PrivateRoute>
-          )}
+          }
         />
         <Route
           path="/profile/:id"
-          element={(
+          element={
             <PrivateRoute>
               <Profile />
             </PrivateRoute>
-          )}
+          }
         />
         <Route path="*" element={<NotFound />} />
       </Routes>

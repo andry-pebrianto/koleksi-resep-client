@@ -1,11 +1,11 @@
-import '../../assets/styles/video.css';
-import React, { useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import ReactPlayer from 'react-player';
-import { BiArrowBack } from 'react-icons/bi';
-import moment from 'moment';
-import { getDetailRecipe, getListRecipe } from '../../redux/actions/recipe';
+import "../../assets/styles/video.css";
+import React, { useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ReactPlayer from "react-player";
+import { BiArrowBack } from "react-icons/bi";
+import moment from "moment";
+import { getDetailRecipe, getListRecipe } from "../../redux/actions/recipe";
 
 export default function Video() {
   const dispatch = useDispatch();
@@ -38,15 +38,13 @@ export default function Video() {
                   to={`/recipe/${detailRecipe.data.id}`}
                   className="btn btn-primary mb-3"
                 >
-                  <BiArrowBack />
-                  {' '}
-                  Back
+                  <BiArrowBack /> Back
                 </Link>
                 {detailRecipe.isLoading ? (
                   <div className="mt-12 mb-10 d-flex justify-content-center">
                     <div
                       className="spinner-border mt-3"
-                      style={{ width: '3rem', height: '3rem' }}
+                      style={{ width: "3rem", height: "3rem" }}
                       role="status"
                     >
                       <span className="visually-hidden">Loading...</span>
@@ -58,12 +56,18 @@ export default function Video() {
                       <h2 className="mt-4 mb-10">{detailRecipe.error}</h2>
                     ) : (
                       <>
-                        <ReactPlayer
-                          url={`https://drive.google.com/uc?export=download&id=${detailRecipe.data.video_id}`}
-                          className="react-player"
-                          controls
-                          width="100%"
-                        />
+                        {detailRecipe.data.video_url ? (
+                          <ReactPlayer
+                            url={detailRecipe.data.video_url}
+                            className="react-player"
+                            controls
+                            width="100%"
+                          />
+                        ) : (
+                          <h2 className="text-center">
+                            This recipe have no video step
+                          </h2>
+                        )}
                         <p className="fs-4 mt-3 mb-1">
                           {detailRecipe.data.title}
                         </p>
@@ -91,9 +95,15 @@ export default function Video() {
                   .slice(0, 3)
                   .map((recipe) => (
                     <div className="card my-2 mx-2 border-0">
-                      <Link className="text-decoration-none text-dark" to={`/recipe/${recipe.id}`}>
+                      <Link
+                        className="text-decoration-none text-dark"
+                        to={`/recipe/${recipe.id}`}
+                      >
                         <img
-                          src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
+                          src={
+                            recipe.photo_url ||
+                            `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`
+                          }
                           className="card-img-top"
                           alt={recipe.title}
                         />

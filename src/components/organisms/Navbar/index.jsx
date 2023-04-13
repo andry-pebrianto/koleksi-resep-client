@@ -6,7 +6,7 @@ import LeftMenu from './LeftMenu';
 import Logo from '../../atoms/Logo';
 
 function Navbar() {
-  const isLoggedIn = Boolean(localStorage.getItem('token'));
+  const isLoggedIn = Boolean(localStorage.getItem('accessToken'));
   const [transparent, setTransparent] = useState(true);
 
   // mengubah bg navbar ketika discroll

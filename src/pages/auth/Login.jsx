@@ -1,19 +1,20 @@
-import '../../assets/styles/auth.css';
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { login } from '../../redux/actions/auth';
-import SideAuth from '../../components/molecules/SideAuth';
-import Logo from '../../components/atoms/Logo';
-import { createToast } from '../../utils/createToast';
-import PasswordInput from '../../components/atoms/PasswordInput';
+import "../../assets/styles/auth.css";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import { login, loginWithGoogle } from "../../redux/actions/auth";
+import SideAuth from "../../components/molecules/SideAuth";
+import Logo from "../../components/atoms/Logo";
+import { createToast } from "../../utils/createToast";
+import PasswordInput from "../../components/atoms/PasswordInput";
 
 export default function Login() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   useEffect(() => {
@@ -24,15 +25,15 @@ export default function Login() {
     e.preventDefault();
 
     if (!form.email || !form.password) {
-      setErrors([{ msg: 'All field required (*) must be filled' }]);
+      setErrors([{ msg: "All field required (*) must be filled" }]);
     } else {
       setErrors([]);
       setIsLoading(true);
 
       const loginStatus = await login(form, setErrors);
       if (loginStatus) {
-        createToast('Login Success', 'success');
-        navigate('/');
+        createToast("Login Success", "success");
+        navigate("/");
       }
 
       setIsLoading(false);
@@ -44,6 +45,23 @@ export default function Login() {
       ...form,
       [e.target.id]: e.target.value,
     });
+  };
+
+  const loginGoogleSuccess = async (response) => {
+    setErrors([]);
+    setIsLoading(true);
+
+    const loginStatus = await loginWithGoogle(response, setErrors);
+    if (loginStatus) {
+      createToast("Login Success", "success");
+      navigate("/");
+    }
+
+    setIsLoading(false);
+  };
+
+  const loginGoogleFailure = (error) => {
+    setErrors([{ msg: error.message }]);
   };
 
   return (
@@ -110,8 +128,7 @@ export default function Login() {
                     className="spinner-border spinner-border-sm"
                     role="status"
                     aria-hidden="true"
-                  />
-                  {' '}
+                  />{" "}
                   Loading...
                 </button>
               ) : (
@@ -133,8 +150,7 @@ export default function Login() {
               </Link>
             </div>
             <p className="text-center text-secondary mt-4 ff-airbnb">
-              Don&apos;t have an account?
-              {' '}
+              Don&apos;t have an account?{" "}
               <Link
                 className="color-primary text-decoration-none"
                 to="/auth/register"
@@ -142,6 +158,12 @@ export default function Login() {
                 Sign Up
               </Link>
             </p>
+            <div className="mb-3 d-flex justify-content-center">
+              <GoogleLogin
+                onSuccess={loginGoogleSuccess}
+                onError={loginGoogleFailure}
+              />
+            </div>
             <br />
           </div>
         </div>

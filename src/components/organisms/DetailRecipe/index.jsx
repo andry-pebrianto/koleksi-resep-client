@@ -1,20 +1,30 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import PropTypes from 'prop-types';
-import { FaPlay, FaRegBookmark, FaRegThumbsUp } from 'react-icons/fa';
+import React from "react";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import PropTypes from "prop-types";
+import ReactHtmlParser from "html-react-parser";
+import { FaPlay, FaRegBookmark, FaRegThumbsUp } from "react-icons/fa";
 
 function DetailRecipe({ recipe }) {
   return (
     <section className="detail ff-airbnb mb-5">
-      <h1 className="display-5 text-center color-blue">{recipe.title}</h1>
+      <h1 className="display-5 text-center color-blue mb-3">{recipe.title}</h1>
+      <div className="tag-container">
+        {recipe.tags.map((tag) => (
+          <span key={tag} className="tag">
+            {tag}
+          </span>
+        ))}
+      </div>
       <div className="text-center mb-3 position-relative">
         {recipe.id && (
           <img
             className="mt-4"
-            src={`${process.env.REACT_APP_API_URL}/photo/${recipe.photo}`}
+            src={
+              recipe.photo_url ||
+              `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`
+            }
             alt={recipe.title}
-            onError={(e) => { e.target.src = `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`; }}
           />
         )}
         <div className="icon">
@@ -29,32 +39,30 @@ function DetailRecipe({ recipe }) {
       <div className="author mb-5">
         <div className="d-flex justify-content-center">
           <p className="m-0">
-            Posted by
-            {' '}
+            Posted by{" "}
             <Link
               to={`/profile/${recipe.user_id}`}
               className="m-0 text-decoration-none text-dark"
             >
-              <strong>{recipe.name}</strong>
-            </Link>
-            {' '}
-            <span title={recipe.date}>
-              - (
-              {moment(recipe.date).fromNow()}
-              )
+              <strong>{recipe.full_name}</strong>
+            </Link>{" "}
+            <span title={recipe.created_at}>
+              - ({moment(recipe.created_at).fromNow()})
             </span>
           </p>
         </div>
       </div>
       <div className="ingredients mb-4">
         <h1 className="fs-2 mb-3">Ingredients</h1>
-        <pre className="ff-airbnb" style={{ fontSize: '16px' }}>
-          {recipe.ingredients}
-        </pre>
+        <p className="ff-airbnb" style={{ fontSize: "16px" }}>
+          {ReactHtmlParser(ReactHtmlParser(recipe.ingredients))}
+        </p>
       </div>
-      {recipe.video && (
+      {recipe.video_url && (
         <div className="video-step">
-          <h1 className="fs-2 mb-3">Video Step</h1>
+          <h1 className="mb-3" style={{ fontSize: "30px" }}>
+            Video Step
+          </h1>
           <Link
             to={`/recipe/${recipe.id}/video`}
             className="btn back-primary text-light"

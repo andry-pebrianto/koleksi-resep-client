@@ -1,25 +1,25 @@
 import axios from "axios";
 import {
-  GET_DETAIL_USER_PENDING,
-  GET_DETAIL_USER_SUCCESS,
-  GET_DETAIL_USER_FAILED,
+  GET_LIST_TAG_PENDING,
+  GET_LIST_TAG_SUCCESS,
+  GET_LIST_TAG_FAILED,
 } from "./types";
 
-export const getDetailUser = (id, navigate) => async (dispatch) => {
-  const accessToken = localStorage.getItem("accessToken");
-
+export const getListTag = (navigate) => async (dispatch) => {
   try {
+    const accessToken = localStorage.getItem("accessToken");
+
     dispatch({
-      type: GET_DETAIL_USER_PENDING,
+      type: GET_LIST_TAG_PENDING,
       payload: null,
     });
 
-    const res = await axios.get(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+    const res = await axios.get(`${process.env.REACT_APP_API_URL}/tag`, {
       headers: { token: accessToken },
     });
 
     dispatch({
-      type: GET_DETAIL_USER_SUCCESS,
+      type: GET_LIST_TAG_SUCCESS,
       payload: res.data,
     });
   } catch (error) {
@@ -33,7 +33,7 @@ export const getDetailUser = (id, navigate) => async (dispatch) => {
     }
 
     dispatch({
-      type: GET_DETAIL_USER_FAILED,
+      type: GET_LIST_TAG_FAILED,
       payload: error.message,
     });
   }

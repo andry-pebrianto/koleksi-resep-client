@@ -1,5 +1,5 @@
-import React from 'react';
-import EditIcon from '../../../assets/icons/edit.svg';
+import React from "react";
+import EditIcon from "../../../assets/icons/edit.svg";
 
 function ProfileData({ profile }) {
   return (
@@ -9,14 +9,17 @@ function ProfileData({ profile }) {
           {profile.id && (
             <img
               className="picture rounded-circle"
-              src={`${process.env.REACT_APP_API_URL}/photo/${profile.photo}`}
+              src={
+                profile.photo_url ||
+                `${process.env.REACT_APP_API_URL}/photo/profile-default.jpg`
+              }
               alt="Profile"
             />
           )}
           <img className="icon" src={EditIcon} alt="Edit Icon" />
         </div>
       </div>
-      <p className="fs-5 mt-3">{profile.name}</p>
+      <p className="fs-5 mt-3">{profile.full_name}</p>
     </section>
   );
 }

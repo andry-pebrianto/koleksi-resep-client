@@ -5,6 +5,7 @@ import detailRecipeReducer from './detailRecipe';
 import detailUserReducer from './detailUser';
 import recipeCommentsReducer from './recipeComments';
 import userRecipesReducer from './userRecipes';
+import listTagReducer from './listTag';
 
 const rootReducers = combineReducers({
   latestRecipe: latestRecipeReducer,
@@ -13,6 +14,7 @@ const rootReducers = combineReducers({
   recipeComments: recipeCommentsReducer,
   detailUser: detailUserReducer,
   userRecipes: userRecipesReducer,
+  listTag: listTagReducer,
 });
 
 export default rootReducers;

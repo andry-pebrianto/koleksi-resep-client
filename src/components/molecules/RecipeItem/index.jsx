@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 function RecipeItem({ recipe }) {
-  const { id, title, photo } = recipe;
+  const { id, title, photo_url } = recipe;
 
   return (
     <div className="col">
@@ -13,10 +13,11 @@ function RecipeItem({ recipe }) {
             {title}
           </p>
           <img
-            src={`${process.env.REACT_APP_API_URL}/photo/${photo}`}
+            src={
+              photo_url || `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`
+            }
             className="card-img-top"
             alt={title}
-            onError={(e) => { e.target.src = `${process.env.REACT_APP_API_URL}/photo/food-default.jpg`; }}
           />
         </div>
       </Link>

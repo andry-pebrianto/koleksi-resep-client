@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   GET_LATEST_RECIPE_PENDING,
   GET_LATEST_RECIPE_SUCCESS,
@@ -12,7 +12,7 @@ import {
   GET_DETAIL_RECIPE_PENDING,
   GET_DETAIL_RECIPE_SUCCESS,
   GET_DETAIL_RECIPE_FAILED,
-} from './types';
+} from "./types";
 
 export const getLatestRecipe = () => async (dispatch) => {
   try {
@@ -22,7 +22,7 @@ export const getLatestRecipe = () => async (dispatch) => {
     });
 
     const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/recipe/latest`,
+      `${process.env.REACT_APP_API_URL}/recipe/latest`
     );
 
     dispatch({
@@ -43,7 +43,7 @@ export const getLatestRecipe = () => async (dispatch) => {
 
 export const getListRecipe = (url, navigate) => async (dispatch) => {
   try {
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem("accessToken");
 
     dispatch({
       type: GET_LIST_RECIPE_PENDING,
@@ -51,7 +51,7 @@ export const getListRecipe = (url, navigate) => async (dispatch) => {
     });
 
     const res = await axios.get(url, {
-      headers: { token },
+      headers: { token: accessToken },
     });
 
     dispatch({
@@ -62,7 +62,7 @@ export const getListRecipe = (url, navigate) => async (dispatch) => {
     if (error.response) {
       if (parseInt(error.response.data.code, 10) === 401) {
         localStorage.clear();
-        return navigate('/auth');
+        return navigate("/auth");
       }
 
       error.message = error.response.data.error;
@@ -77,7 +77,7 @@ export const getListRecipe = (url, navigate) => async (dispatch) => {
 
 export const getDetailRecipe = (id, navigate) => async (dispatch) => {
   try {
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem("accessToken");
 
     dispatch({
       type: GET_DETAIL_RECIPE_PENDING,
@@ -87,8 +87,8 @@ export const getDetailRecipe = (id, navigate) => async (dispatch) => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/recipe/${id}`,
       {
-        headers: { token },
-      },
+        headers: { token: accessToken },
+      }
     );
 
     dispatch({
@@ -99,7 +99,7 @@ export const getDetailRecipe = (id, navigate) => async (dispatch) => {
     if (error.response) {
       if (parseInt(error.response.data.code, 10) === 401) {
         localStorage.clear();
-        return navigate('/auth');
+        return navigate("/auth");
       }
 
       error.message = error.response.data.error;
@@ -113,7 +113,7 @@ export const getDetailRecipe = (id, navigate) => async (dispatch) => {
 };
 
 export const getUserRecipes = (id, navigate) => async (dispatch) => {
-  const token = localStorage.getItem('token');
+  const accessToken = localStorage.getItem("accessToken");
 
   try {
     dispatch({
@@ -124,8 +124,8 @@ export const getUserRecipes = (id, navigate) => async (dispatch) => {
     const res = await axios.get(
       `${process.env.REACT_APP_API_URL}/user/${id}/recipe`,
       {
-        headers: { token },
-      },
+        headers: { token: accessToken },
+      }
     );
 
     dispatch({
@@ -136,7 +136,7 @@ export const getUserRecipes = (id, navigate) => async (dispatch) => {
     if (error.response) {
       if (parseInt(error.response.data.code, 10) === 401) {
         localStorage.clear();
-        return navigate('/auth');
+        return navigate("/auth");
       }
 
       error.message = error.response.data.error;
@@ -151,7 +151,7 @@ export const getUserRecipes = (id, navigate) => async (dispatch) => {
 
 export const deleteRecipe = async (id, setError) => {
   try {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     await axios.delete(`${process.env.REACT_APP_API_URL}/recipe/${id}`, {
       headers: { token },
@@ -171,10 +171,10 @@ export const deleteRecipe = async (id, setError) => {
 
 export const postRecipe = async (data, setErrors) => {
   try {
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem("accessToken");
 
     await axios.post(`${process.env.REACT_APP_API_URL}/recipe`, data, {
-      headers: { 'Content-Type': 'multipart/form-data', token },
+      headers: { token: accessToken },
     });
 
     return true;
@@ -195,10 +195,10 @@ export const postRecipe = async (data, setErrors) => {
 
 export const putRecipe = async (id, data, setErrors) => {
   try {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     await axios.put(`${process.env.REACT_APP_API_URL}/recipe/${id}`, data, {
-      headers: { 'Content-Type': 'multipart/form-data', token },
+      headers: { "Content-Type": "multipart/form-data", token },
     });
 
     return true;

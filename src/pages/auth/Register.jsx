@@ -2,7 +2,7 @@ import "../../assets/styles/auth.css";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
-import { register } from "../../redux/actions/auth";
+import { loginWithGoogle, register } from "../../redux/actions/auth";
 import SideAuth from "../../components/molecules/SideAuth";
 import Logo from "../../components/atoms/Logo";
 import { createToast } from "../../utils/createToast";
@@ -57,11 +57,21 @@ export default function Register() {
     });
   };
 
-  const loginGoogleSuccess = (response) => {
-    console.log(response);
+  const loginGoogleSuccess = async (response) => {
+    setErrors([]);
+    setIsLoading(true);
+
+    const loginStatus = await loginWithGoogle(response, setErrors);
+    if (loginStatus) {
+      createToast("Login Success", "success");
+      navigate("/");
+    }
+
+    setIsLoading(false);
   };
+
   const loginGoogleFailure = (error) => {
-    console.log(error);
+    setErrors([{ msg: error.message }]);
   };
 
   return (
