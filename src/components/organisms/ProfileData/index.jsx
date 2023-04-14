@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ProfileData({ profile }) {
   return (
@@ -18,13 +19,19 @@ function ProfileData({ profile }) {
         </div>
       </div>
       <p className="fs-5 mt-3">{profile.full_name}</p>
-      <a href="/" className="btn btn-outline-primary btn-sm mx-2">
+      <Link
+        to="/myprofile/edit"
+        className="btn btn-outline-primary btn-sm mx-2"
+      >
         Edit Profile
-      </a>
+      </Link>
       {!profile.google_id && (
-        <a href="/" className="btn btn-outline-primary btn-sm mx-2">
+        <Link
+          to="/myprofile/password"
+          className="btn btn-outline-primary btn-sm mx-2"
+        >
           Edit Password
-        </a>
+        </Link>
       )}
     </section>
   );

@@ -12,6 +12,7 @@ import AddRecipe from "../pages/recipe/Add";
 import EditRecipe from "../pages/recipe/Edit";
 import VideoRecipe from "../pages/recipe/Video";
 import Profile from "../pages/user/Profile";
+import EditProfile from "../pages/user/Edit";
 import NotFound from "../pages/NotFound";
 
 function PrivateRoute({ children }) {
@@ -121,6 +122,14 @@ export default function router() {
           element={
             <PrivateRoute>
               <Profile my />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/myprofile/edit"
+          element={
+            <PrivateRoute>
+              <EditProfile />
             </PrivateRoute>
           }
         />
