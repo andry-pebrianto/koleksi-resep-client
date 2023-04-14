@@ -86,7 +86,7 @@ export default function Edit() {
       <Navbar />
       {/* content */}
       <div className="container mb-5">
-        {/* add */}
+        {/* edit */}
         <section className="add ff-airbnb">
           {errors.length > 0 && (
             <div className="alert alert-danger mx-0">
@@ -147,7 +147,7 @@ export default function Edit() {
               </label>
               <DatePicker
                 onChange={(date) => setBirthDate(date)}
-                selected={birthDate ? new Date(birthDate) : new Date()}
+                selected={birthDate ? new Date(birthDate) : undefined}
                 dateFormat="yyyy-MM-dd"
                 placeholderText="Birth Date"
                 className="datepicker w-100 p-3"

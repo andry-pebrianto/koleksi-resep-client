@@ -63,3 +63,28 @@ export const putUserProfile = async (data, setErrors) => {
     return false;
   }
 };
+
+export const putUserPassword = async (data, setErrors) => {
+  try {
+    const accessToken = localStorage.getItem("accessToken");
+    const id = localStorage.getItem("id");
+
+    await axios.put(`${process.env.REACT_APP_API_URL}/user/${id}/password`, data, {
+      headers: { token: accessToken },
+    });
+
+    return true;
+  } catch (error) {
+    if (error.response) {
+      if (Array.isArray(error.response.data.error)) {
+        setErrors(error.response.data.error);
+      } else {
+        setErrors([{ msg: error.response.data.error }]);
+      }
+    } else {
+      setErrors([{ msg: error.message }]);
+    }
+
+    return false;
+  }
+};

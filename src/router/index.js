@@ -14,6 +14,7 @@ import VideoRecipe from "../pages/recipe/Video";
 import Profile from "../pages/user/Profile";
 import EditProfile from "../pages/user/Edit";
 import NotFound from "../pages/NotFound";
+import Password from "../pages/user/Password";
 
 function PrivateRoute({ children }) {
   const accessToken = localStorage.getItem("accessToken");
@@ -130,6 +131,14 @@ export default function router() {
           element={
             <PrivateRoute>
               <EditProfile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/myprofile/password"
+          element={
+            <PrivateRoute>
+              <Password />
             </PrivateRoute>
           }
         />
