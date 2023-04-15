@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Dropzone from "react-dropzone";
-import { createToast } from "../../../utils/createToast";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { createToast } from "../../../utils/createToast";
+import { checkAndRefreshAccessToken } from "../../../redux/actions/auth";
 import ImagePreview from "../../atoms/ImagePreview";
 
 export default function Upload({
@@ -12,12 +14,13 @@ export default function Upload({
   setFileUpload,
   disabled,
 }) {
+  const navigate = useNavigate();
   const [file, setFile] = useState({
     name: "",
     size: "",
   });
 
-  const handleDrop = (acceptedFiles, rejectedFiles) => {
+  const handleDrop = async (acceptedFiles, rejectedFiles) => {
     const fileAccept = acceptedFiles[0];
     const fileReject = rejectedFiles[0];
 
@@ -36,35 +39,37 @@ export default function Upload({
         formData.append("video", fileAccept);
       }
 
-      axios
-        .post(`${process.env.REACT_APP_API_URL}/upload/aws`, formData, {
-          headers: {
-            token: localStorage.getItem("accessToken"),
-          },
-        })
-        .then((response) => {
-          if (type === "photo") {
-            setFileUpload(response.data.data.photo);
-          } else {
-            setFileUpload(response.data.data.video);
-          }
-        })
-        .catch((error) => {
-          setFileUpload("");
-          setFile({
-            name: "",
-            size: "",
-          });
+      if (await checkAndRefreshAccessToken(navigate)) {
+        axios
+          .post(`${process.env.REACT_APP_API_URL}/upload/aws`, formData, {
+            headers: {
+              token: localStorage.getItem("accessToken"),
+            },
+          })
+          .then((response) => {
+            if (type === "photo") {
+              setFileUpload(response.data.data.photo);
+            } else {
+              setFileUpload(response.data.data.video);
+            }
+          })
+          .catch((error) => {
+            setFileUpload("");
+            setFile({
+              name: "",
+              size: "",
+            });
 
-          if (error.response) {
-            createToast(error.response.data.error, "error");
-          } else {
-            createToast(error.message, "error");
-          }
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+            if (error.response) {
+              createToast(error.response.data.error, "error");
+            } else {
+              createToast(error.message, "error");
+            }
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      }
     } else {
       createToast(fileReject?.errors[0]?.message, "error");
     }
