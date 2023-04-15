@@ -1,4 +1,5 @@
 import axios from "axios";
+import { createToast } from "../../utils/createToast";
 
 export const login = async (data, setErrors) => {
   try {
@@ -143,9 +144,7 @@ export const checkAndRefreshAccessToken = async (navigate) => {
 
       return true;
     } catch (error) {
-      localStorage.clear();
-
-      navigate("/auth");
+      createToast(error.message, "error");
       return false;
     }
   }
