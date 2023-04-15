@@ -12,6 +12,7 @@ import RichEditor from "../../components/molecules/RichEditor";
 import SelectTag from "../../components/molecules/SelectTag";
 import { getListTag } from "../../redux/actions/tag";
 import Upload from "../../components/molecules/Upload";
+import { checkAndRefreshAccessToken } from "../../redux/actions/auth";
 
 export default function Edit() {
   const navigate = useNavigate();
@@ -65,22 +66,23 @@ export default function Edit() {
         setPhoto(res.data.data.photo_url);
         setVideo(res.data.data.video_url);
         setIsApiLoading(false);
-
-        return 0;
       } catch (error) {
         if (error.response) {
+          // jika error disebabkan oleh jwt token expired
           if (parseInt(error.response.data.code, 10) === 401) {
-            localStorage.clear();
-            return navigate("/auth");
+            // jika access token berhasil diperbarui
+            if (await checkAndRefreshAccessToken(navigate)) {
+              replaceEditData();
+            } else {
+              setIsApiError(error.response.data.error);
+            }
           }
-
-          error.message = error.response.data.error;
+        } else {
+          // jika error karena hal lain
+          setIsApiError(error.message);
         }
 
-        setIsApiError(error.message);
         setIsApiLoading(false);
-
-        return 0;
       }
     }
     replaceEditData();
@@ -94,26 +96,28 @@ export default function Edit() {
     if (!form.title || !ingredients || !tags.length) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
     } else {
-      setErrors([]);
-      setIsLoading(true);
+      if (await checkAndRefreshAccessToken(navigate)) {
+        setErrors([]);
+        setIsLoading(true);
 
-      const addRecipeStatus = await putRecipe(
-        urlParams.id,
-        {
-          ...form,
-          ingredients,
-          photoUrl: photo,
-          videoUrl: video,
-          tags,
-        },
-        setErrors
-      );
-      if (addRecipeStatus) {
-        createToast("Edit Recipe Success");
-        navigate("/myprofile");
+        const addRecipeStatus = await putRecipe(
+          urlParams.id,
+          {
+            ...form,
+            ingredients,
+            photoUrl: photo,
+            videoUrl: video,
+            tags,
+          },
+          setErrors
+        );
+        if (addRecipeStatus) {
+          createToast("Edit Recipe Success");
+          navigate("/myprofile");
+        }
+
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     }
     window.scrollTo(0, 0);
   };

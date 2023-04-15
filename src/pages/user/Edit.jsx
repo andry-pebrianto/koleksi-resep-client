@@ -10,6 +10,7 @@ import { getDetailUser, putUserProfile } from "../../redux/actions/user";
 import { createToast } from "../../utils/createToast";
 import "react-datepicker/dist/react-datepicker.css";
 import moment from "moment";
+import { checkAndRefreshAccessToken } from "../../redux/actions/auth";
 
 export default function Edit() {
   const dispatch = useDispatch();
@@ -45,30 +46,32 @@ export default function Edit() {
     if (!form.name) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
     } else {
-      setErrors([]);
-      setIsLoading(true);
+      if (await checkAndRefreshAccessToken(navigate)) {
+        setErrors([]);
+        setIsLoading(true);
 
-      const payload = {
-        fullName: form.name,
-        photo,
-      };
-      birthDate
-        ? (payload.birthDate = moment(birthDate).format("YYYY-MM-DD"))
-        : "";
-      form.phone ? (payload.phone = form.phone) : "";
+        const payload = {
+          fullName: form.name,
+          photo,
+        };
+        birthDate
+          ? (payload.birthDate = moment(birthDate).format("YYYY-MM-DD"))
+          : "";
+        form.phone ? (payload.phone = form.phone) : "";
 
-      const editUserStatus = await putUserProfile(
-        {
-          ...payload,
-        },
-        setErrors
-      );
-      if (editUserStatus) {
-        createToast("Edit Profile Success");
-        navigate("/myprofile");
+        const editUserStatus = await putUserProfile(
+          {
+            ...payload,
+          },
+          setErrors
+        );
+        if (editUserStatus) {
+          createToast("Edit Profile Success");
+          navigate("/myprofile");
+        }
+
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     }
     window.scrollTo(0, 0);
   };

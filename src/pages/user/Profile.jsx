@@ -30,8 +30,8 @@ export default function Profile({ my = false }) {
     }
 
     const id = my ? localStorage.getItem('id') : urlParams.id;
-    dispatch(getDetailUser(id));
-    dispatch(getUserRecipes(id));
+    dispatch(getDetailUser(id, navigate));
+    dispatch(getUserRecipes(id, navigate));
 
     return 0;
   }, [dispatch, my, navigate, urlParams.id]);

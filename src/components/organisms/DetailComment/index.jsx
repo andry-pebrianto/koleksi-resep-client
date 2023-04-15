@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const _ = require("lodash");
 import PropTypes from "prop-types";
 import { getRecipeComments, postComment } from "../../../redux/actions/comment";
 import { useDispatch } from "react-redux";
 import { createToast } from "../../../utils/createToast";
+import { checkAndRefreshAccessToken } from "../../../redux/actions/auth";
 
 function DetailComment({ comments, recipeId }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [comment, setComment] = useState("");
   const [errors, setErrors] = useState([]);
@@ -19,23 +21,26 @@ function DetailComment({ comments, recipeId }) {
     if (!comment) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
     } else {
-      setErrors([]);
-      setIsLoading(true);
+      if (await checkAndRefreshAccessToken(navigate)) {
+        setErrors([]);
+        setIsLoading(true);
 
-      const addComment = await postComment(
-        {
-          commentText: comment,
-          recipeId,
-        },
-        setErrors
-      );
+        const addComment = await postComment(
+          {
+            commentText: comment,
+            recipeId,
+          },
+          setErrors,
+          navigate
+        );
 
-      if (addComment) {
-        createToast("Add Comment Success");
-        dispatch(getRecipeComments(recipeId, setErrors));
+        if (addComment) {
+          createToast("Add Comment Success");
+          dispatch(getRecipeComments(recipeId, navigate));
+        }
+
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     }
   };
 

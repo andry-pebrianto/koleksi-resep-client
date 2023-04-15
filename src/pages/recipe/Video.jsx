@@ -22,7 +22,7 @@ export default function Video() {
 
   useEffect(() => {
     dispatch(getDetailRecipe(urlParams.id, navigate));
-    dispatch(getListRecipe(`${process.env.REACT_APP_API_URL}/recipe?limit=25`));
+    dispatch(getListRecipe(`${process.env.REACT_APP_API_URL}/recipe?limit=25`, navigate));
   }, [dispatch, navigate, urlParams.id]);
 
   return (
@@ -72,7 +72,7 @@ export default function Video() {
                           {detailRecipe.data.title}
                         </p>
                         <p className="text-secondary">
-                          {moment(detailRecipe.data.date).fromNow()}
+                          {moment(detailRecipe.data.created_at).fromNow()}
                         </p>
                       </>
                     )}

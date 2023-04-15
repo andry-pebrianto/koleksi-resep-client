@@ -4,6 +4,7 @@ import {
   GET_LIST_TAG_SUCCESS,
   GET_LIST_TAG_FAILED,
 } from "./types";
+import { checkAndRefreshAccessToken } from "./auth";
 
 export const getListTag = (navigate) => async (dispatch) => {
   try {
@@ -24,17 +25,19 @@ export const getListTag = (navigate) => async (dispatch) => {
     });
   } catch (error) {
     if (error.response) {
+      // jika error disebabkan oleh jwt token expired
       if (parseInt(error.response.data.code, 10) === 401) {
-        localStorage.clear();
-        return navigate("/auth");
+        // jika access token berhasil diperbarui
+        if (await checkAndRefreshAccessToken(navigate)) {
+          dispatch(getListTag(navigate));
+        }
       }
-
-      error.message = error.response.data.error;
+    } else {
+      // jika error karena hal lain
+      dispatch({
+        type: GET_LIST_TAG_FAILED,
+        payload: error.message,
+      });
     }
-
-    dispatch({
-      type: GET_LIST_TAG_FAILED,
-      payload: error.message,
-    });
   }
 };

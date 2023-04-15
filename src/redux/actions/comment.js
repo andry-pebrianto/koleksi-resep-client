@@ -4,6 +4,7 @@ import {
   GET_RECIPE_COMMENTS_SUCCESS,
   GET_RECIPE_COMMENTS_FAILED,
 } from "./types";
+import { checkAndRefreshAccessToken } from "./auth";
 
 export const getRecipeComments = (id, navigate) => async (dispatch) => {
   try {
@@ -27,18 +28,20 @@ export const getRecipeComments = (id, navigate) => async (dispatch) => {
     });
   } catch (error) {
     if (error.response) {
+      // jika error disebabkan oleh jwt token expired
       if (parseInt(error.response.data.code, 10) === 401) {
-        localStorage.clear();
-        return navigate("/auth");
+        // jika access token berhasil diperbarui
+        if (await checkAndRefreshAccessToken(navigate)) {
+          dispatch(getRecipeComments(id, navigate));
+        }
       }
-
-      error.message = error.response.data.error;
+    } else {
+      // jika error karena hal lain
+      dispatch({
+        type: GET_RECIPE_COMMENTS_FAILED,
+        payload: error.message,
+      });
     }
-
-    dispatch({
-      type: GET_RECIPE_COMMENTS_FAILED,
-      payload: error.message,
-    });
   }
 };
 

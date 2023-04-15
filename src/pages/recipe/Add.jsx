@@ -10,6 +10,7 @@ import Footer from "../../components/organisms/Footer";
 import Upload from "../../components/molecules/Upload";
 import RichEditor from "../../components/molecules/RichEditor";
 import SelectTag from "../../components/molecules/SelectTag";
+import { checkAndRefreshAccessToken } from "../../redux/actions/auth";
 
 export default function Add() {
   const navigate = useNavigate();
@@ -41,25 +42,27 @@ export default function Add() {
     if (!form.title || !ingredients || !tags.length) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
     } else {
-      setErrors([]);
-      setIsLoading(true);
+      if (await checkAndRefreshAccessToken(navigate)) {
+        setErrors([]);
+        setIsLoading(true);
 
-      const addRecipeStatus = await postRecipe(
-        {
-          ...form,
-          ingredients,
-          photoUrl: photo,
-          videoUrl: video,
-          tags,
-        },
-        setErrors
-      );
-      if (addRecipeStatus) {
-        createToast("Add Recipe Success");
-        navigate("/myprofile");
+        const addRecipeStatus = await postRecipe(
+          {
+            ...form,
+            ingredients,
+            photoUrl: photo,
+            videoUrl: video,
+            tags,
+          },
+          setErrors
+        );
+        if (addRecipeStatus) {
+          createToast("Add Recipe Success");
+          navigate("/myprofile");
+        }
+
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     }
     window.scrollTo(0, 0);
   };

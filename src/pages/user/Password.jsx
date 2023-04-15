@@ -8,6 +8,7 @@ import Footer from "../../components/organisms/Footer";
 import { getDetailUser, putUserPassword } from "../../redux/actions/user";
 import PasswordInput from "../../components/atoms/PasswordInput";
 import { createToast } from "../../utils/createToast";
+import { checkAndRefreshAccessToken } from "../../redux/actions/auth";
 
 export default function Edit() {
   const dispatch = useDispatch();
@@ -38,16 +39,18 @@ export default function Edit() {
     if (!form.password || !form.oldPassword) {
       setErrors([{ msg: "All field required (*) must be filled" }]);
     } else {
-      setErrors([]);
-      setIsLoading(true);
+      if (await checkAndRefreshAccessToken(navigate)) {
+        setErrors([]);
+        setIsLoading(true);
 
-      const editUserStatus = await putUserPassword(form, setErrors);
-      if (editUserStatus) {
-        createToast("Edit Password Success");
-        navigate("/myprofile");
+        const editUserStatus = await putUserPassword(form, setErrors);
+        if (editUserStatus) {
+          createToast("Edit Password Success");
+          navigate("/myprofile");
+        }
+
+        setIsLoading(false);
       }
-
-      setIsLoading(false);
     }
     window.scrollTo(0, 0);
   };

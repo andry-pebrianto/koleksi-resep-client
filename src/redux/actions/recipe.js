@@ -13,6 +13,7 @@ import {
   GET_DETAIL_RECIPE_SUCCESS,
   GET_DETAIL_RECIPE_FAILED,
 } from "./types";
+import { checkAndRefreshAccessToken } from "./auth";
 
 export const getLatestRecipe = () => async (dispatch) => {
   try {
@@ -60,18 +61,20 @@ export const getListRecipe = (url, navigate) => async (dispatch) => {
     });
   } catch (error) {
     if (error.response) {
+      // jika error disebabkan oleh jwt token expired
       if (parseInt(error.response.data.code, 10) === 401) {
-        localStorage.clear();
-        return navigate("/auth");
+        // jika access token berhasil diperbarui
+        if (await checkAndRefreshAccessToken(navigate)) {
+          dispatch(getListRecipe(url, navigate));
+        }
       }
-
-      error.message = error.response.data.error;
+    } else {
+      // jika error karena hal lain
+      dispatch({
+        type: GET_LIST_RECIPE_FAILED,
+        payload: error.message,
+      });
     }
-
-    dispatch({
-      type: GET_LIST_RECIPE_FAILED,
-      payload: error.message,
-    });
   }
 };
 
@@ -97,18 +100,20 @@ export const getDetailRecipe = (id, navigate) => async (dispatch) => {
     });
   } catch (error) {
     if (error.response) {
+      // jika error disebabkan oleh jwt token expired
       if (parseInt(error.response.data.code, 10) === 401) {
-        localStorage.clear();
-        return navigate("/auth");
+        // jika access token berhasil diperbarui
+        if (await checkAndRefreshAccessToken(navigate)) {
+          dispatch(getDetailRecipe(id, navigate));
+        }
       }
-
-      error.message = error.response.data.error;
+    } else {
+      // jika error karena hal lain
+      dispatch({
+        type: GET_DETAIL_RECIPE_FAILED,
+        payload: error.message,
+      });
     }
-
-    dispatch({
-      type: GET_DETAIL_RECIPE_FAILED,
-      payload: error.message,
-    });
   }
 };
 
@@ -134,18 +139,20 @@ export const getUserRecipes = (id, navigate) => async (dispatch) => {
     });
   } catch (error) {
     if (error.response) {
+      // jika error disebabkan oleh jwt token expired
       if (parseInt(error.response.data.code, 10) === 401) {
-        localStorage.clear();
-        return navigate("/auth");
+        // jika access token berhasil diperbarui
+        if (await checkAndRefreshAccessToken(navigate)) {
+          dispatch(getUserRecipes(id, navigate));
+        }
       }
-
-      error.message = error.response.data.error;
+    } else {
+      // jika error karena hal lain
+      dispatch({
+        type: GET_USER_RECIPES_FAILED,
+        payload: error.message,
+      });
     }
-
-    dispatch({
-      type: GET_USER_RECIPES_FAILED,
-      payload: error.message,
-    });
   }
 };
 

@@ -122,3 +122,31 @@ export const reset = async (token, data, setErrors) => {
     return false;
   }
 };
+
+export const checkAndRefreshAccessToken = async (navigate) => {
+  const accessToken = localStorage.getItem("accessToken");
+
+  try {
+    await axios.get(`${process.env.REACT_APP_API_URL}/user/${id}`, {
+      headers: { token: accessToken },
+    });
+  } catch (error) {
+    try {
+      const res = await axios.put(
+        `${process.env.REACT_APP_API_URL}/auth/refresh/${localStorage.getItem(
+          "refreshToken"
+        )}`
+      );
+
+      localStorage.setItem("accessToken", res.data.token.accessToken);
+      console.log("Access Token Updated!");
+
+      return true;
+    } catch (error) {
+      localStorage.clear();
+
+      navigate("/auth");
+      return false;
+    }
+  }
+};

@@ -4,6 +4,7 @@ import {
   GET_DETAIL_USER_SUCCESS,
   GET_DETAIL_USER_FAILED,
 } from "./types";
+import { checkAndRefreshAccessToken } from "./auth";
 
 export const getDetailUser = (id, navigate) => async (dispatch) => {
   const accessToken = localStorage.getItem("accessToken");
@@ -24,18 +25,20 @@ export const getDetailUser = (id, navigate) => async (dispatch) => {
     });
   } catch (error) {
     if (error.response) {
+      // jika error disebabkan oleh jwt token expired
       if (parseInt(error.response.data.code, 10) === 401) {
-        localStorage.clear();
-        return navigate("/auth");
+        // jika access token berhasil diperbarui
+        if (await checkAndRefreshAccessToken(navigate)) {
+          dispatch(getDetailUser(id, navigate));
+        }
       }
-
-      error.message = error.response.data.error;
+    } else {
+      // jika error karena hal lain
+      dispatch({
+        type: GET_DETAIL_USER_FAILED,
+        payload: error.message,
+      });
     }
-
-    dispatch({
-      type: GET_DETAIL_USER_FAILED,
-      payload: error.message,
-    });
   }
 };
 
@@ -69,9 +72,13 @@ export const putUserPassword = async (data, setErrors) => {
     const accessToken = localStorage.getItem("accessToken");
     const id = localStorage.getItem("id");
 
-    await axios.put(`${process.env.REACT_APP_API_URL}/user/${id}/password`, data, {
-      headers: { token: accessToken },
-    });
+    await axios.put(
+      `${process.env.REACT_APP_API_URL}/user/${id}/password`,
+      data,
+      {
+        headers: { token: accessToken },
+      }
+    );
 
     return true;
   } catch (error) {
