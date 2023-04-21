@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegEdit, FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { deleteRecipe, getUserRecipes } from "../../../redux/actions/recipe";
 import { createToast } from "../../../utils/createToast";
+import { checkAndRefreshAccessToken } from "../../../redux/actions/auth";
 
 function MyRecipe({ my, profile, recipes }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const removeRecipe = (id) => {
@@ -21,12 +23,14 @@ function MyRecipe({ my, profile, recipes }) {
       confirmButtonText: "Yes, Delete!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const deleteStatus = await deleteRecipe(id, setError);
-        if (deleteStatus) {
-          createToast("Delete Recipe Success", "success");
-          dispatch(getUserRecipes(profile.id));
-        } else {
-          createToast(error, "error");
+        if (await checkAndRefreshAccessToken(navigate)) {
+          const deleteStatus = await deleteRecipe(id, setError);
+          if (deleteStatus) {
+            createToast("Delete Recipe Success", "success");
+            dispatch(getUserRecipes(profile.id));
+          } else {
+            createToast(error, "error");
+          }
         }
       }
     });
