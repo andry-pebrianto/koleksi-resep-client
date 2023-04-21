@@ -19,6 +19,7 @@ Koleksi Resep is a web application for sharing recipes with features to register
 - [Bootstrap](https://getbootstrap.com/)
 - [Axios](https://github.com/axios/axios)
 - [Moment](https://momentjs.com/)
+- [React OAuth Google](https://www.npmjs.com/package/@react-oauth/google)
 
 <!-- GETTING STARTED -->
 ## Getting Started
