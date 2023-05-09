@@ -144,7 +144,10 @@ export const checkAndRefreshAccessToken = async (navigate) => {
 
       return true;
     } catch (error) {
-      createToast(error.message, "error");
+      createToast("Sesi telah habis, tolong Login ulang", "error");
+      localStorage.clear();
+      navigate("/");
+
       return false;
     }
   }
