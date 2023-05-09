@@ -20,7 +20,7 @@ Koleksi Resep is a web application for sharing recipes with features to register
 - [Axios](https://github.com/axios/axios)
 - [Moment](https://momentjs.com/)
 - [React OAuth Google](https://www.npmjs.com/package/@react-oauth/google)
-
+ 
 <!-- GETTING STARTED -->
 ## Getting Started
 
@@ -90,6 +90,6 @@ Contributors names and contact info:
 
 - [Linkedin](https://www.linkedin.com/in/andry-pebrianto)
 
-## License
+## License 
 
 This project is licensed under the MIT License - see the LICENSE file for details
