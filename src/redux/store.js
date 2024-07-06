@@ -15,12 +15,12 @@ const middleware = applyMiddleware(thunk);
 
 let store = null;
 
-if (process.env.REACT_APP_NODE_ENV === 'production') {
+if (process.env.REACT_APP_NODE_ENV === 'prod') {
   store = createStore(persistedReducer, middleware);
 } else {
   store = createStore(
     persistedReducer,
-    process.env.REACT_APP_NODE_ENV === 'production'
+    process.env.REACT_APP_NODE_ENV === 'prod'
       ? middleware
       : composeWithDevTools(middleware),
   );

@@ -1,19 +1,19 @@
-import '../../../assets/styles/navbar.css';
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import RightMenu from './RightMenu';
-import LeftMenu from './LeftMenu';
-import Logo from '../../atoms/Logo';
+import "../../../assets/styles/navbar.css";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import RightMenu from "./RightMenu";
+import LeftMenu from "./LeftMenu";
+import Logo from "../../atoms/Logo";
 
 function Navbar() {
-  const isLoggedIn = Boolean(localStorage.getItem('accessToken'));
+  const isLoggedIn = Boolean(localStorage.getItem("accessToken"));
   const [transparent, setTransparent] = useState(true);
 
   // mengubah bg navbar ketika discroll
   const changeNavBg = () => {
     const navbarTogglerStatus = document
-      .querySelector('.navbar-toggler')
-      .classList.contains('collapsed');
+      ?.querySelector(".navbar-toggler")
+      ?.classList.contains("collapsed");
 
     if (navbarTogglerStatus) {
       if (document.documentElement.scrollTop > 100) {
@@ -27,12 +27,12 @@ function Navbar() {
   // mengubah bg navbar ketika button hamburger diklik
   const changeNavBgClick = () => {
     const navbarTogglerStatus = document
-      .querySelector('.navbar-toggler')
-      .classList.contains('collapsed');
+      ?.querySelector(".navbar-toggler")
+      ?.classList?.contains("collapsed");
 
     if (navbarTogglerStatus) {
       if (document.documentElement.scrollTop > 100) {
-        console.log('');
+        console.log("");
       } else {
         setTransparent(true);
       }
@@ -42,17 +42,17 @@ function Navbar() {
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', changeNavBg);
+    window.addEventListener("scroll", changeNavBg);
 
     return () => {
-      window.removeEventListener('scroll', changeNavBg);
+      window.removeEventListener("scroll", changeNavBg);
     };
   }, []);
 
   return (
     <nav
       className={`navbar fixed-top navbar-expand-md navbar-light py-2 py-md-4 ff-airbnb ${
-        transparent ? 'bg-transparent' : 'bg-white nav-shadow'
+        transparent ? "bg-transparent" : "bg-white nav-shadow"
       }`}
       id="navbar"
     >
