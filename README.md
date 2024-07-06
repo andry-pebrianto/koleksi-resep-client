@@ -31,7 +31,7 @@ Koleksi Resep is a web application for sharing recipes with features to register
 
 - Install Module
 
-`npm install`
+`yarn`
 
 - Setting .env
 
@@ -43,7 +43,7 @@ REACT_APP_API_URL=YOUR_API_URL
 
 ### Executing program
 
-- Run this project with `npm run start`.
+- Run this project with `yarn run start`.
 
 <!-- SCREENSHOT -->
 ## Screenshot
