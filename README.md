@@ -78,7 +78,7 @@ REACT_APP_API_URL=YOUR_API_URL
 <!-- RELATED PROJECT -->
 ## Related Project
 
-- [Koleksi Resep API](https://github.com/andry-pebrianto/koleksi-resep-api)
+- [Koleksi Resep Server](https://github.com/andry-pebrianto/koleksi-resep-server)
 - [Koleksi Resep Demo](https://koleksi-resep.netlify.app/)
 
 <!-- CONTACT INFO -->
