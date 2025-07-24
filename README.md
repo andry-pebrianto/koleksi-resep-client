@@ -43,7 +43,7 @@ REACT_APP_API_URL=YOUR_API_URL
 
 ### Executing program
 
-- Run this project with `yarn run start`.
+- Run this project with `npm run start`.
 
 <!-- SCREENSHOT -->
 ## Screenshot

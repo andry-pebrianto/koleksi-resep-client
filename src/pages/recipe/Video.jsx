@@ -29,8 +29,8 @@ export default function Video() {
     <div className="container-fluid">
       <div className="row ff-airbnb">
         {/* video */}
-        <section className="col-12 col-lg-9">
-          <div className="row change vh-100">
+        <section className="col-12 col-lg-9 vh-100">
+          <div className="row change">
             <div className="col-1 back-primary" />
             <div className="col-11 d-flex justify-content-center">
               <div className="video mx-1 mx-sm-3 mx-md-5 w-100">
@@ -83,7 +83,7 @@ export default function Video() {
           </div>
         </section>
         {/* other recipe */}
-        <aside className="col-lg-3 d-none d-lg-block">
+        <aside className="col-lg-3 d-none d-lg-block vh-100" style={{ overflow: "auto" }}>
           <div className="other">
             <p className="fs-4">Other Recipe</p>
             {listRecipe.isLoading ? (
