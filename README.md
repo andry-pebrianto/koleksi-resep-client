@@ -31,7 +31,7 @@ Koleksi Resep is a web application for sharing recipes with features to register
 
 - Install Module
 
-`yarn`
+`npm install`
 
 - Setting .env
 
