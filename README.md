@@ -36,9 +36,9 @@ Koleksi Resep is a web application for sharing recipes with features to register
 - Setting .env
 
 ```bash
-REACT_APP_APP_NAME=YOUR_APP_NAME
-REACT_APP_NODE_ENV=YOUR_CURRENT_ENVIRONMENT
-REACT_APP_API_URL=YOUR_API_URL
+REACT_APP_APP_NAME=
+REACT_APP_NODE_ENV=
+REACT_APP_API_URL=
 ```
 
 ### Executing program
