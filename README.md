@@ -3,7 +3,7 @@
 </div>
 <h3 align="center">Koleksi Resep</h3>
 <p align="center">
-  <a href="https://koleksi-resep.netlify.app/">View Demo</a>
+  <a href="https://koleksiresep.andrypebrianto.com">View Demo</a>
   ·
   <a href="https://github.com/andry-pebrianto/koleksi-resep-client/issues">Report Bug</a>
 </p>
@@ -79,7 +79,7 @@ REACT_APP_API_URL=
 ## Related Project
 
 - [Koleksi Resep Server](https://github.com/andry-pebrianto/koleksi-resep-server)
-- [Koleksi Resep Demo](https://koleksi-resep.netlify.app/)
+- [Koleksi Resep Demo](https://koleksiresep.andrypebrianto.com)
 
 <!-- CONTACT INFO -->
 ## Contact Info
