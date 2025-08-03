@@ -39,6 +39,7 @@ Koleksi Resep is a web application for sharing recipes with features to register
 REACT_APP_APP_NAME=
 REACT_APP_NODE_ENV=
 REACT_APP_API_URL=
+REACT_APP_GOOGLE_CLIENT_ID=
 ```
 
 ### Executing program
