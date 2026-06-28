@@ -41,7 +41,7 @@ export default function Upload({
 
       if (await checkAndRefreshAccessToken(navigate)) {
         axios
-          .post(`${process.env.REACT_APP_API_URL}/upload/aws`, formData, {
+          .post(`${process.env.REACT_APP_API_URL}/upload/rustfs`, formData, {
             headers: {
               token: localStorage.getItem("accessToken"),
             },
