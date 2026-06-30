@@ -79,7 +79,7 @@ REACT_APP_GOOGLE_CLIENT_ID=
 <!-- RELATED PROJECT -->
 ## Related Project
 
-- [Koleksi Resep API](https://github.com/andry-pebrianto/koleksi-resep-server)
+- [Koleksi Resep API](https://github.com/andry-pebrianto/koleksi-resep-api)
 - [Koleksi Resep Demo](https://koleksi-resep.andrypebrianto.com)
 
 <!-- CONTACT INFO -->
